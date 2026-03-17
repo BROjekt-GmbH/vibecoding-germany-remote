@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from 'react';
 import {
   FolderOpen,
-  ScrollText,
+
   Terminal,
   Plus,
   Search,
@@ -24,7 +24,6 @@ interface PrimaryButton {
 
 const PRIMARY_BUTTONS: PrimaryButton[] = [
   { id: 'files',         icon: <FolderOpen  size={15} />, label: 'Dateien' },
-  { id: 'logs',          icon: <ScrollText  size={15} />, label: 'Logs' },
   { id: 'terminal-mini', icon: <Terminal    size={15} />, label: 'Terminal' },
 ];
 

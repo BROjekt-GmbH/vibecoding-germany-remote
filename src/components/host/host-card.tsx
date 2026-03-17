@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Server, Terminal, ArrowRight, RefreshCw, FolderOpen, ScrollText } from 'lucide-react';
+import { Server, Terminal, ArrowRight, RefreshCw, FolderOpen } from 'lucide-react';
 import { formatRelativeTime } from '@/lib/utils';
 import { Spinner } from '@/components/ui/spinner';
 import { usePanelManager } from '@/lib/stores/panel-manager';
@@ -34,11 +34,6 @@ export function HostCard({ host, isOnline, sessionCount }: HostCardProps) {
     openPanel('files');
   };
 
-  const handleOpenLogs = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    openPanel('logs');
-  };
 
   const handleReconnect = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -170,14 +165,7 @@ export function HostCard({ host, isOnline, sessionCount }: HostCardProps) {
           >
             <FolderOpen size={12} />
           </button>
-          <button
-            type="button"
-            title="Logs anzeigen"
-            onClick={handleOpenLogs}
-            className="flex items-center justify-center w-6 h-6 rounded text-[#4a5a6e] hover:text-[#22d3ee] hover:bg-[#1a2028] transition-colors"
-          >
-            <ScrollText size={12} />
-          </button>
+
         </div>
 
         {/* Footer */}

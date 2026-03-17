@@ -3,7 +3,6 @@ import next from 'next';
 import { Server as SocketIO } from 'socket.io';
 import { setupTerminalNamespace } from '../src/lib/socket/terminal';
 import { setupUpdatesNamespace } from '../src/lib/socket/updates';
-import { setupLogsNamespace } from '../src/lib/socket/logs';
 
 import { resolveIdentity } from '../src/lib/tailscale/whois';
 
@@ -44,11 +43,8 @@ app.prepare().then(() => {
   const terminalNs = io.of('/terminal');
   const updatesNs = io.of('/updates');
 
-  const logsNs = io.of('/logs');
-
   setupTerminalNamespace(terminalNs);
   setupUpdatesNamespace(updatesNs);
-  setupLogsNamespace(logsNs);
 
   const port = parseInt(process.env.PORT || '3000', 10);
   httpServer.listen(port, () => {

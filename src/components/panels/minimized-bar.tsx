@@ -1,6 +1,6 @@
 'use client';
 
-import { FolderOpen, ScrollText, Terminal, FolderKanban, Server, Clock } from 'lucide-react';
+import { FolderOpen, Terminal, FolderKanban, Server, Clock } from 'lucide-react';
 import { usePanelManager } from '@/lib/stores/panel-manager';
 import { useIsMobile } from '@/hooks/use-mobile';
 import type { PanelId } from '@/types/panels';
@@ -8,7 +8,6 @@ import type { PanelId } from '@/types/panels';
 // Symbole je Panel-ID
 const PANEL_ICONS: Record<PanelId, React.ReactNode> = {
   'files':         <FolderOpen size={14} />,
-  'logs':          <ScrollText size={14} />,
   'terminal-mini': <Terminal size={14} />,
   'projects':      <FolderKanban size={14} />,
   'host-status':   <Server size={14} />,
@@ -18,7 +17,6 @@ const PANEL_ICONS: Record<PanelId, React.ReactNode> = {
 // Titel je Panel-ID
 const PANEL_TITLES: Record<PanelId, string> = {
   'files':         'Dateien',
-  'logs':          'Logs',
   'terminal-mini': 'Terminal',
   'projects':      'Projekte',
   'host-status':   'Host-Status',

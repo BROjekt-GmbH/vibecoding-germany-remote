@@ -1,4 +1,4 @@
-export type PanelId = 'files' | 'logs' | 'terminal-mini' | 'projects' | 'host-status' | 'history';
+export type PanelId = 'files' | 'terminal-mini' | 'projects' | 'host-status' | 'history';
 
 export interface PanelPosition {
   x: number;
@@ -28,7 +28,7 @@ export interface PanelDefaults {
 
 export const PANEL_DEFAULTS: Record<PanelId, PanelDefaults> = {
   files:           { position: { x: 60, y: 80 },  size: { width: 420, height: 500 }, minSize: { width: 300, height: 300 } },
-  logs:            { position: { x: 120, y: 100 }, size: { width: 500, height: 400 }, minSize: { width: 300, height: 200 } },
+
   'terminal-mini': { position: { x: 100, y: 120 }, size: { width: 560, height: 350 }, minSize: { width: 400, height: 250 } },
   projects:        { position: { x: 140, y: 90 },  size: { width: 420, height: 400 }, minSize: { width: 300, height: 250 } },
   'host-status':   { position: { x: 200, y: 100 }, size: { width: 380, height: 350 }, minSize: { width: 280, height: 250 } },

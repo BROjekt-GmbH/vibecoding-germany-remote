@@ -8,8 +8,7 @@ import type { PanelId } from '@/types/panels';
 // Mapping Ctrl+1..4 auf Panel-IDs
 const SHORTCUT_PANELS: Record<string, PanelId> = {
   '1': 'files',
-  '2': 'logs',
-  '3': 'terminal-mini',
+  '2': 'terminal-mini',
 };
 
 // Prueft ob der Fokus in einem Eingabefeld liegt

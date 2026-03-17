@@ -96,7 +96,7 @@ interface PanelManagerState {
 // Initialen Zustand aus PANEL_DEFAULTS aufbauen
 function buildInitialPanels(): Record<PanelId, PanelState> {
   const panelIds: PanelId[] = [
-    'files', 'logs', 'terminal-mini', 'projects', 'host-status', 'history',
+    'files', 'terminal-mini', 'projects', 'host-status', 'history',
   ];
 
   return panelIds.reduce((acc, id, index) => {

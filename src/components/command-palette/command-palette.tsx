@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { Command } from 'cmdk';
 import { useRouter } from 'next/navigation';
 import {
-  LayoutDashboard, Server, Terminal, FolderOpen, ScrollText,
+  LayoutDashboard, Server, Terminal, FolderOpen,
   Settings, FolderKanban, Clock, Zap,
 } from 'lucide-react';
 import { usePanelManager } from '@/lib/stores/panel-manager';
@@ -71,9 +71,7 @@ export function CommandPalette() {
               <Command.Item onSelect={() => navigate('/files')}>
                 <FolderOpen size={14} /> Dateien
               </Command.Item>
-              <Command.Item onSelect={() => navigate('/logs')}>
-                <ScrollText size={14} /> Logs
-              </Command.Item>
+
               <Command.Item onSelect={() => navigate('/settings')}>
                 <Settings size={14} /> Einstellungen
               </Command.Item>
@@ -85,9 +83,7 @@ export function CommandPalette() {
               <Command.Item onSelect={() => panel('files')}>
                 <FolderOpen size={14} /> Panel: Dateien
               </Command.Item>
-              <Command.Item onSelect={() => panel('logs')}>
-                <ScrollText size={14} /> Panel: Logs
-              </Command.Item>
+
               <Command.Item onSelect={() => panel('terminal-mini')}>
                 <Terminal size={14} /> Panel: Quick Terminal
               </Command.Item>

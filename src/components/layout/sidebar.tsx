@@ -8,7 +8,7 @@ import {
   Server,
   FolderOpen,
   FileText,
-  ScrollText,
+
   Settings,
   ChevronLeft,
   ChevronRight,
@@ -22,7 +22,7 @@ const navItems = [
   { label: 'Terminal', path: '/terminal', icon: Terminal },
   { label: 'Projects', path: '/projects', icon: FolderOpen },
   { label: 'Files', path: '/files', icon: FileText },
-  { label: 'Logs', path: '/logs', icon: ScrollText },
+
   { label: 'Settings', path: '/settings', icon: Settings },
 ];
 

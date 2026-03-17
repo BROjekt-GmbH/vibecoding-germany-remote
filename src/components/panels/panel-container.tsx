@@ -1,11 +1,11 @@
 'use client';
 
-import { FolderOpen, ScrollText, Terminal, FolderKanban, Server, Clock } from 'lucide-react';
+import { FolderOpen, Terminal, FolderKanban, Server, Clock } from 'lucide-react';
 import { FloatingPanel } from './floating-panel';
 import { usePanelManager } from '@/lib/stores/panel-manager';
 import type { PanelId } from '@/types/panels';
 import { FilesPanel } from './content/files-panel';
-import { LogsPanel } from './content/logs-panel';
+
 import { TerminalMiniPanel } from './content/terminal-mini-panel';
 import { ProjectsPanel } from './content/projects-panel';
 import { HostStatusPanel } from './content/host-status-panel';
@@ -18,7 +18,6 @@ const PANEL_CONFIG: Array<{
   icon: React.ReactNode;
 }> = [
   { id: 'files',         title: 'Dateien',     icon: <FolderOpen size={14} /> },
-  { id: 'logs',          title: 'Logs',         icon: <ScrollText size={14} /> },
   { id: 'terminal-mini', title: 'Terminal',     icon: <Terminal size={14} /> },
   { id: 'projects',      title: 'Projekte',     icon: <FolderKanban size={14} /> },
   { id: 'host-status',   title: 'Host-Status',  icon: <Server size={14} /> },
@@ -45,7 +44,6 @@ function PanelPlaceholder({ title }: { title: string }) {
 function PanelContent({ id, title }: { id: PanelId; title: string }) {
   switch (id) {
     case 'files':         return <FilesPanel />;
-    case 'logs':          return <LogsPanel />;
     case 'terminal-mini': return <TerminalMiniPanel />;
     case 'projects':      return <ProjectsPanel />;
     case 'host-status':   return <HostStatusPanel />;

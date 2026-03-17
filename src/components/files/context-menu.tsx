@@ -10,7 +10,7 @@ import {
   Clipboard,
   Download,
   Trash2,
-  ScrollText,
+
 } from 'lucide-react';
 import { useFileBrowser } from '@/lib/stores/file-browser';
 import { usePanelManager } from '@/lib/stores/panel-manager';
@@ -101,11 +101,6 @@ export function ContextMenu({
     onClose();
   };
 
-  const handleShowLogs = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    openPanel('logs');
-    onClose();
-  };
 
   const handleRename = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -178,11 +173,6 @@ export function ContextMenu({
       {/* Quick Terminal */}
       <MenuButton icon={<Terminal size={12} />} onClick={handleQuickTerminal}>
         Quick Terminal
-      </MenuButton>
-
-      {/* Logs anzeigen */}
-      <MenuButton icon={<ScrollText size={12} />} onClick={handleShowLogs}>
-        Logs anzeigen
       </MenuButton>
 
       <Separator />
