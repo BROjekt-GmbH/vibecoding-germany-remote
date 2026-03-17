@@ -8,7 +8,7 @@ import {
   Server,
   FolderOpen,
   FileText,
-
+  CircleHelp,
   Settings,
   ChevronLeft,
   ChevronRight,
@@ -23,6 +23,7 @@ const navItems = [
   { label: 'Projects', path: '/projects', icon: FolderOpen },
   { label: 'Files', path: '/files', icon: FileText },
 
+  { label: 'Hilfe', path: '/help', icon: CircleHelp },
   { label: 'Settings', path: '/settings', icon: Settings },
 ];
 
