@@ -6,6 +6,7 @@ import { requireUser } from '@/lib/auth';
 import { UpdateHostSchema } from '@/lib/validation';
 import { sanitizeHost } from '@/lib/api/sanitize';
 import { sshPool } from '@/lib/ssh/pool';
+import { encrypt } from '@/lib/crypto';
 
 type Params = { params: Promise<{ id: string }> };
 
@@ -39,11 +40,16 @@ export async function PATCH(req: NextRequest, { params }: Params) {
       );
     }
 
-    const hasKeyChange = parsed.data.privateKey !== undefined;
+    const data = { ...parsed.data };
+    if (data.privateKey) {
+      data.privateKey = encrypt(data.privateKey);
+    }
+
+    const hasKeyChange = data.privateKey !== undefined;
 
     const [updated] = await db
       .update(hosts)
-      .set({ ...parsed.data, updatedAt: new Date() })
+      .set({ ...data, updatedAt: new Date() })
       .where(eq(hosts.id, id))
       .returning();
 

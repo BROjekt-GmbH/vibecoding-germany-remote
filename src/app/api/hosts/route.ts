@@ -4,6 +4,7 @@ import { hosts } from '@/lib/db/schema';
 import { requireUser } from '@/lib/auth';
 import { CreateHostSchema } from '@/lib/validation';
 import { sanitizeHost } from '@/lib/api/sanitize';
+import { encrypt } from '@/lib/crypto';
 
 export async function GET() {
   try {
@@ -30,7 +31,11 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const [host] = await db.insert(hosts).values(parsed.data).returning();
+    const data = { ...parsed.data };
+    if (data.privateKey) {
+      data.privateKey = encrypt(data.privateKey);
+    }
+    const [host] = await db.insert(hosts).values(data).returning();
     return NextResponse.json(sanitizeHost(host), { status: 201 });
   } catch (err: unknown) {
     if (err instanceof Error && err.message === 'Unauthorized') {

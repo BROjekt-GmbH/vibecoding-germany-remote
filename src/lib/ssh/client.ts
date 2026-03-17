@@ -2,6 +2,7 @@ import { db } from '../db';
 import { hosts } from '../db/schema';
 import { eq } from 'drizzle-orm';
 import { sshPool } from './pool';
+import { decrypt } from '../crypto';
 import type { SSHConfig } from './types';
 
 export async function getHostSSHConfig(hostId: string): Promise<SSHConfig> {
@@ -19,7 +20,8 @@ export async function getHostSSHConfig(hostId: string): Promise<SSHConfig> {
     };
   }
 
-  const privateKey = h.privateKey;
+  // Key aus DB entschluesseln
+  const privateKey = h.privateKey ? decrypt(h.privateKey) : undefined;
 
   return {
     host: h.hostname,
