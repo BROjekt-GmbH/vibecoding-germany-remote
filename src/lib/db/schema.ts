@@ -71,14 +71,3 @@ export const alertHistory = sqliteTable('alert_history', {
   readAt: integer('read_at', { mode: 'timestamp' }),
   createdAt: integer('created_at', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
 });
-
-// Gespeicherte tmux-Layouts
-export const sessionTemplates = sqliteTable('session_templates', {
-  id: text('id').primaryKey().$defaultFn(() => randomUUID()),
-  userLogin: text('user_login').notNull(),
-  name: text('name').notNull(),
-  description: text('description'),
-  layout: text('layout', { mode: 'json' }).notNull(),
-  createdAt: integer('created_at', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
-  updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
-});

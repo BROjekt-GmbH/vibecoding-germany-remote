@@ -5,6 +5,7 @@ import { Header } from '@/components/layout/header';
 import { FooterBar } from '@/components/layout/footer-bar';
 import { BottomTabBar } from '@/components/layout/bottom-tab-bar';
 import { ToastProvider } from '@/components/layout/toast';
+import { CommandPalette } from '@/components/command-palette/command-palette';
 import { getUser } from '@/lib/auth';
 
 export const metadata: Metadata = {
@@ -42,6 +43,7 @@ export default async function RootLayout({
       <body>
         <ToastProvider>
           <Header user={user} />
+          <CommandPalette />
           <FooterBar />
           <BottomTabBar />
           {/* Main content area */}

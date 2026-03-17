@@ -116,20 +116,6 @@ export interface AlertHistoryItem {
   createdAt: string;
 }
 
-// Session-Template — gespeicherte tmux-Layouts
-export interface SessionTemplate {
-  id: string;
-  userLogin: string;
-  name: string;
-  description: string | null;
-  layout: {
-    panes: Array<{ index: number; width: number; height: number; command?: string }>;
-    splits: string;
-  };
-  createdAt: string;
-  updatedAt: string;
-}
-
 // Host-Gruppe — Kategorisierung
 export interface HostGroup {
   id: string;

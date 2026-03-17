@@ -6,8 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import { Badge } from '@/components/ui/badge';
-import { Server, Terminal, Plus, LayoutTemplate, Trash2 } from 'lucide-react';
-import type { SessionTemplate } from '@/types';
+import { Server, Terminal, Plus, Trash2 } from 'lucide-react';
 import type { Host, TmuxSession } from '@/types';
 
 interface SessionPickerDialogProps {
@@ -28,9 +27,6 @@ export function SessionPickerDialog({ open, onClose, onSelect, existingTabs }: S
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState('');
   const [killingSession, setKillingSession] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'sessions' | 'templates'>('sessions');
-  const [templates, setTemplates] = useState<SessionTemplate[]>([]);
-  const [loadingTemplates, setLoadingTemplates] = useState(false);
 
   useEffect(() => {
     if (!open) return;
@@ -41,7 +37,6 @@ export function SessionPickerDialog({ open, onClose, onSelect, existingTabs }: S
       setShowCreate(false);
       setNewName('');
       setError('');
-      setActiveTab('sessions');
     });
     fetch('/api/hosts')
       .then((r) => r.ok ? r.json() : [])
@@ -67,28 +62,6 @@ export function SessionPickerDialog({ open, onClose, onSelect, existingTabs }: S
     setShowCreate(false);
     setError('');
     loadSessions(host.id);
-  };
-
-  const loadTemplates = useCallback(async () => {
-    setLoadingTemplates(true);
-    try {
-      const res = await fetch('/api/terminal/templates');
-      if (res.ok) {
-        const data = await res.json();
-        setTemplates(Array.isArray(data.templates) ? data.templates : []);
-      }
-    } catch { /* ignore */ }
-    setLoadingTemplates(false);
-  }, []);
-
-  const deleteTemplate = async (id: string) => {
-    await fetch(`/api/terminal/templates/${id}`, { method: 'DELETE' });
-    setTemplates((prev) => prev.filter((t) => t.id !== id));
-  };
-
-  const handleTabSwitch = (tab: 'sessions' | 'templates') => {
-    setActiveTab(tab);
-    if (tab === 'templates' && templates.length === 0) loadTemplates();
   };
 
   const isTabOpen = (hostId: string, sessionName: string, pane = '0') =>
@@ -138,86 +111,16 @@ export function SessionPickerDialog({ open, onClose, onSelect, existingTabs }: S
 
   return (
     <Dialog open={open} onClose={onClose} title="Neue Session verbinden">
-      {/* Tab-Switcher */}
-      <div className="flex gap-1 mb-4" style={{ borderBottom: '1px solid var(--border-subtle)' }}>
-        <button
-          onClick={() => handleTabSwitch('sessions')}
-          className={`px-3 py-1.5 text-[12px] transition-colors ${activeTab === 'sessions' ? 'text-[#22d3ee] border-b-2 border-[#22d3ee]' : 'text-[#4a5a6e] hover:text-[#c8d6e5]'}`}
-        >
-          <Terminal size={12} className="inline mr-1.5 -mt-0.5" />Sessions
-        </button>
-        <button
-          onClick={() => handleTabSwitch('templates')}
-          className={`px-3 py-1.5 text-[12px] transition-colors ${activeTab === 'templates' ? 'text-[#22d3ee] border-b-2 border-[#22d3ee]' : 'text-[#4a5a6e] hover:text-[#c8d6e5]'}`}
-        >
-          <LayoutTemplate size={12} className="inline mr-1.5 -mt-0.5" />Templates
-        </button>
-      </div>
-
-      {/* Templates Tab */}
-      {activeTab === 'templates' && (
-        <div>
-          {loadingTemplates ? (
-            <div className="flex items-center justify-center gap-2 py-8">
-              <Spinner size="sm" />
-              <span className="text-sm" style={{ color: 'var(--text-muted)' }}>Lade Templates...</span>
-            </div>
-          ) : templates.length === 0 ? (
-            <p className="text-sm text-center py-8" style={{ color: 'var(--text-muted)' }}>
-              Keine Templates vorhanden.
-            </p>
-          ) : (
-            <div className="flex flex-col gap-1.5 max-h-64 overflow-y-auto">
-              {templates.map((tpl) => (
-                <div
-                  key={tpl.id}
-                  className="flex items-center gap-3 px-3 py-2 rounded-sm transition-colors hover:bg-[#111519] group"
-                  style={{ border: '1px solid var(--border-subtle)' }}
-                >
-                  <button
-                    className="flex-1 text-left"
-                    onClick={() => {
-                      if (!selectedHost) return;
-                      onSelect(selectedHost.id, selectedHost.name, tpl.name);
-                    }}
-                    disabled={!selectedHost}
-                  >
-                    <LayoutTemplate size={12} className="inline mr-2 text-[#22d3ee]" />
-                    <span className="text-[12px] text-[#c8d6e5]">{tpl.name}</span>
-                    {tpl.description && (
-                      <span className="text-[11px] ml-2" style={{ color: 'var(--text-muted)' }}>{tpl.description}</span>
-                    )}
-                  </button>
-                  <button
-                    onClick={() => deleteTemplate(tpl.id)}
-                    className="opacity-0 group-hover:opacity-100 text-[#4a5a6e] hover:text-[#f87171] transition-all"
-                    title="Template loeschen"
-                  >
-                    <Trash2 size={12} />
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
-          {!selectedHost && templates.length > 0 && (
-            <p className="text-[11px] text-center mt-3" style={{ color: 'var(--text-muted)' }}>
-              Waehle zuerst einen Host im Sessions-Tab, um ein Template anzuwenden.
-            </p>
-          )}
-        </div>
-      )}
-
-      {/* Sessions Tab */}
-      {activeTab === 'sessions' && loading ? (
+      {loading ? (
         <div className="flex items-center justify-center gap-2 py-8">
           <Spinner size="sm" />
           <span className="text-sm" style={{ color: 'var(--text-muted)' }}>Lade Hosts...</span>
         </div>
-      ) : activeTab === 'sessions' && hosts.length === 0 ? (
+      ) : hosts.length === 0 ? (
         <p className="text-sm text-center py-8" style={{ color: 'var(--text-muted)' }}>
           Keine Hosts konfiguriert.
         </p>
-      ) : activeTab === 'sessions' ? (
+      ) : (
         <div className="flex flex-col gap-4">
           {/* Host-Karten */}
           <div className="grid grid-cols-2 gap-2">
@@ -340,7 +243,7 @@ export function SessionPickerDialog({ open, onClose, onSelect, existingTabs }: S
             </div>
           )}
         </div>
-      ) : null}
+      )}
     </Dialog>
   );
 }
