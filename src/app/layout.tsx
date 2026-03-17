@@ -53,7 +53,7 @@ export default async function RootLayout({
               background: 'var(--bg-base)',
             }}
           >
-            <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '2.5rem 2rem 1.5rem' }}>
+            <div className="max-w-6xl mx-auto px-4 md:px-8 pt-10">
               {children}
             </div>
           </main>
