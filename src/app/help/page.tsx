@@ -244,7 +244,7 @@ apk add tmux`}</CodeBlock>
 
           <ol className="list-decimal list-inside space-y-3 ml-1">
             <li>
-              Gehe zu <strong className="text-[#c9d6e3]">Settings</strong> in der Sidebar
+              Gehe zu <strong className="text-[#c9d6e3]">Settings</strong> in der Navigation
             </li>
             <li>
               Klicke auf <strong className="text-[#c9d6e3]">Host hinzufuegen</strong>

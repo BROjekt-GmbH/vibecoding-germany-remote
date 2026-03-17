@@ -20,17 +20,6 @@ export function useKeyboardShortcuts() {
     function handleKeyDown(e: KeyboardEvent) {
       if (isTyping()) return;
 
-      // Ctrl+B — Sidebar umschalten
-      if (e.ctrlKey && !e.shiftKey && e.key === 'b') {
-        e.preventDefault();
-        const stored = localStorage.getItem('sidebar-collapsed');
-        const next = stored !== 'true';
-        localStorage.setItem('sidebar-collapsed', String(next));
-        // Sidebar liest localStorage beim naechsten Render; Event ausloesen
-        window.dispatchEvent(new CustomEvent('sidebar-toggle', { detail: { collapsed: next } }));
-        return;
-      }
-
       // Escape — Command Palette schliessen
       if (e.key === 'Escape') {
         if (commandPalette.open) {

@@ -71,7 +71,7 @@
   --scanline-opacity: 0.03;
 
   /* Layout */
-  --sidebar-width: 200px;
+  --sidebar-width: 0px;
   --header-height: 52px;
   --tab-bar-height: 0px;
   --footer-height: 28px;

@@ -233,7 +233,7 @@ export default function TerminalPage() {
       style={{
         position: 'fixed',
         top: isMobile ? 0 : 'var(--header-height)',
-        left: isMobile ? 0 : 'var(--sidebar-width)',
+        left: 0,
         right: 0,
         overscrollBehavior: 'none',
         ...(isMobile && vpHeight != null
