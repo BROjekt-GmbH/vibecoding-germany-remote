@@ -110,6 +110,32 @@ export function HostCard({ host, isOnline, sessionCount }: HostCardProps) {
           </div>
         </div>
 
+        {/* Schnellaktionen */}
+        {isOnline && (
+          <div className="flex items-center gap-1.5 mb-3">
+            <button
+              type="button"
+              title="Terminal oeffnen"
+              onClick={handleOpenTerminal}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-[11px] text-[#8a9bb0] hover:text-[#22d3ee] hover:bg-[#111519] transition-all duration-150"
+              style={{ border: '1px solid var(--border-default)' }}
+            >
+              <Terminal size={12} />
+              Terminal
+            </button>
+            <button
+              type="button"
+              title="Dateien oeffnen"
+              onClick={handleOpenFiles}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-[11px] text-[#8a9bb0] hover:text-[#22d3ee] hover:bg-[#111519] transition-all duration-150"
+              style={{ border: '1px solid var(--border-default)' }}
+            >
+              <FolderOpen size={12} />
+              Dateien
+            </button>
+          </div>
+        )}
+
         {/* Reconnect Button (nur wenn offline) */}
         {!isOnline && (
           <div className="mb-3">
@@ -141,30 +167,6 @@ export function HostCard({ host, isOnline, sessionCount }: HostCardProps) {
             </button>
           </div>
         )}
-
-        {/* Schnellaktionen — erscheinen beim Hover */}
-        <div
-          className="absolute top-2 right-2 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-150"
-          onClick={(e) => e.preventDefault()}
-        >
-          <button
-            type="button"
-            title="Terminal oeffnen"
-            onClick={handleOpenTerminal}
-            className="flex items-center justify-center w-7 h-7 rounded-md text-[#4a5a6e] hover:text-[#22d3ee] hover:bg-[#111519] transition-all duration-150"
-          >
-            <Terminal size={13} />
-          </button>
-          <button
-            type="button"
-            title="Dateien oeffnen"
-            onClick={handleOpenFiles}
-            className="flex items-center justify-center w-7 h-7 rounded-md text-[#4a5a6e] hover:text-[#22d3ee] hover:bg-[#111519] transition-all duration-150"
-          >
-            <FolderOpen size={13} />
-          </button>
-
-        </div>
 
         {/* Footer */}
         <div className="flex items-center justify-between pt-2.5 border-t border-[#1a2028]">
