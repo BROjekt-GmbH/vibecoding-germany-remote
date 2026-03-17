@@ -18,7 +18,6 @@ const ROUTES = [
   { path: '/', name: 'Dashboard' },
   { path: '/hosts', name: 'Hosts' },
   { path: '/terminal', name: 'Terminal' },
-  { path: '/projects', name: 'Projects' },
   { path: '/settings', name: 'Settings' },
 ] as const;
 

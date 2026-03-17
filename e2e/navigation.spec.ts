@@ -10,7 +10,7 @@
 
 import { test, expect } from './fixtures/test-base';
 
-const MAIN_ROUTES = ['/', '/hosts', '/terminal', '/projects', '/settings'] as const;
+const MAIN_ROUTES = ['/', '/hosts', '/terminal', '/settings'] as const;
 
 test.describe('Dashboard', () => {
   test('loads without JS errors', async ({ page }) => {
@@ -35,7 +35,7 @@ test.describe('Dashboard', () => {
     await page.goto('/');
     await expect(page.getByRole('link', { name: /Hosts/i })).toBeVisible();
     await expect(page.getByRole('link', { name: /Terminal/i })).toBeVisible();
-    await expect(page.getByRole('link', { name: /Projects/i })).toBeVisible();
+    await expect(page.getByRole('link', { name: /Files/i })).toBeVisible();
   });
 
   test('shows system status panel', async ({ page }) => {
@@ -88,6 +88,6 @@ test.describe('Sidebar navigation', () => {
     const nav = page.locator('nav, aside').first();
     await expect(nav.getByRole('link', { name: /hosts/i })).toBeVisible();
     await expect(nav.getByRole('link', { name: /terminal/i })).toBeVisible();
-    await expect(nav.getByRole('link', { name: /projects/i })).toBeVisible();
+    await expect(nav.getByRole('link', { name: /files/i })).toBeVisible();
   });
 });

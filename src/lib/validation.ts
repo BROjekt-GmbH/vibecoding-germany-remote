@@ -12,14 +12,6 @@ export const CreateHostSchema = z.object({
 
 export const UpdateHostSchema = CreateHostSchema.partial();
 
-export const CreateProjectSchema = z.object({
-  name: z.string().min(1).max(100),
-  path: z.string().min(1),
-  hostId: z.string().uuid(),
-  description: z.string().optional(),
-});
-
-export const UpdateProjectSchema = CreateProjectSchema.partial();
 
 export const UpdatePreferencesSchema = z.object({
   theme: z.enum(['dark', 'light']).optional(),
@@ -31,6 +23,4 @@ export const UpdatePreferencesSchema = z.object({
 
 export type CreateHostInput = z.infer<typeof CreateHostSchema>;
 export type UpdateHostInput = z.infer<typeof UpdateHostSchema>;
-export type CreateProjectInput = z.infer<typeof CreateProjectSchema>;
-export type UpdateProjectInput = z.infer<typeof UpdateProjectSchema>;
 export type UpdatePreferencesInput = z.infer<typeof UpdatePreferencesSchema>;

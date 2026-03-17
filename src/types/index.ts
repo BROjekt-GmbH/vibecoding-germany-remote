@@ -41,17 +41,6 @@ export interface TmuxPane {
   currentCommand?: string;
 }
 
-// Project
-export interface Project {
-  id: string;
-  name: string;
-  path: string;
-  hostId: string;
-  description: string | null;
-  createdAt: string;
-  updatedAt: string;
-}
-
 // User
 export interface AuthUser {
   login: string;

@@ -121,13 +121,6 @@ test.describe('Network — API response times', () => {
     expect(elapsed).toBeLessThan(500);
   });
 
-  test('GET /api/projects responds under 500ms', async ({ page }) => {
-    const start = Date.now();
-    const res = await page.request.get('/api/projects');
-    const elapsed = Date.now() - start;
-    console.log(`  GET /api/projects: ${elapsed}ms (status ${res.status()})`);
-    expect(elapsed).toBeLessThan(500);
-  });
 
   test('GET /api/preferences responds under 500ms', async ({ page }) => {
     const start = Date.now();

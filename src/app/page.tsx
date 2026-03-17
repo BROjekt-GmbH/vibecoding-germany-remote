@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Server, Terminal, Activity, ArrowRight, Zap } from 'lucide-react';
+import { Server, Terminal, FolderOpen, ArrowRight, Zap } from 'lucide-react';
 import { Spinner } from '@/components/ui/spinner';
 import { Badge } from '@/components/ui/badge';
 import { useHostStatus } from '@/hooks/use-host-status';
@@ -116,7 +116,7 @@ export default function DashboardPage() {
         {[
           { label: 'Hosts', path: '/hosts', icon: Server, description: `${onlineHosts} online`, accent: 'var(--cyan)' },
           { label: 'Terminal', path: '/terminal', icon: Terminal, description: `${totalSessions} sessions`, accent: 'var(--green)' },
-          { label: 'Projects', path: '/projects', icon: Activity, description: 'Repository sessions', accent: 'var(--amber)' },
+          { label: 'Files', path: '/files', icon: FolderOpen, description: 'Remote Dateien', accent: 'var(--amber)' },
         ].map((tile, i) => {
           const Icon = tile.icon;
           return (

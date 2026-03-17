@@ -26,15 +26,6 @@ export const hosts = sqliteTable('hosts', {
   updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
 });
 
-export const projects = sqliteTable('projects', {
-  id: text('id').primaryKey().$defaultFn(() => randomUUID()),
-  name: text('name').notNull(),
-  path: text('path').notNull(),
-  hostId: text('host_id').references(() => hosts.id, { onDelete: 'cascade' }).notNull(),
-  description: text('description'),
-  createdAt: integer('created_at', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
-  updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
-});
 
 export const preferences = sqliteTable('preferences', {
   id: text('id').primaryKey().$defaultFn(() => randomUUID()),
