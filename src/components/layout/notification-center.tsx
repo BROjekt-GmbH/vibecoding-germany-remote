@@ -179,12 +179,13 @@ interface NotificationListProps {
 }
 
 function NotificationList({ notifications, onItemClick, onLoadMore, hasMore }: NotificationListProps) {
-  const now = Date.now();
+  const [now, setNow] = useState(0);
+  useEffect(() => { queueMicrotask(() => setNow(Date.now())); }, [notifications]);
   const recentItems: AlertEvent[] = [];
   const earlierItems: AlertEvent[] = [];
 
   for (const n of notifications) {
-    if (now - n.timestamp < EARLIER_THRESHOLD_MS) {
+    if (now === 0 || now - n.timestamp < EARLIER_THRESHOLD_MS) {
       recentItems.push(n);
     } else {
       earlierItems.push(n);

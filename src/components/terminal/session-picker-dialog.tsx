@@ -34,13 +34,15 @@ export function SessionPickerDialog({ open, onClose, onSelect, existingTabs }: S
 
   useEffect(() => {
     if (!open) return;
-    setLoading(true);
-    setSelectedHost(null);
-    setSessions([]);
-    setShowCreate(false);
-    setNewName('');
-    setError('');
-    setActiveTab('sessions');
+    queueMicrotask(() => {
+      setLoading(true);
+      setSelectedHost(null);
+      setSessions([]);
+      setShowCreate(false);
+      setNewName('');
+      setError('');
+      setActiveTab('sessions');
+    });
     fetch('/api/hosts')
       .then((r) => r.ok ? r.json() : [])
       .then((data) => setHosts(Array.isArray(data) ? data : []))

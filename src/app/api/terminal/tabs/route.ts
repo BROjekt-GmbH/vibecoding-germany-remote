@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { terminalTabs, hosts } from '@/lib/db/schema';
-import { eq, and, asc } from 'drizzle-orm';
+import { eq, asc } from 'drizzle-orm';
 import { requireUser } from '@/lib/auth';
 
 // GET: Alle Tabs des Users laden (mit Host-Name)

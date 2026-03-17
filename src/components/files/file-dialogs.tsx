@@ -211,8 +211,10 @@ export function RenameDialog({ open, path, onClose }: RenameDialogProps) {
   // Name bei erneutem Oeffnen synchronisieren
   useEffect(() => {
     if (open) {
-      setName(path.split('/').pop() ?? '');
-      setError('');
+      queueMicrotask(() => {
+        setName(path.split('/').pop() ?? '');
+        setError('');
+      });
     }
   }, [open, path]);
 

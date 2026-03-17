@@ -198,7 +198,7 @@ export default function TerminalPage() {
       (t) => t.hostId === tab.hostId && t.sessionName === tab.sessionName && t.pane === tab.pane
     );
     if (existing) {
-      setActiveTabId(existing.id);
+      queueMicrotask(() => setActiveTabId(existing.id));
       return;
     }
 
