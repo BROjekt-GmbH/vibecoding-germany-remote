@@ -39,7 +39,7 @@ export async function PATCH(req: NextRequest, { params }: Params) {
       );
     }
 
-    const hasKeyChange = parsed.data.privateKey !== undefined || parsed.data.privateKeyEnv !== undefined;
+    const hasKeyChange = parsed.data.privateKey !== undefined;
 
     const [updated] = await db
       .update(hosts)

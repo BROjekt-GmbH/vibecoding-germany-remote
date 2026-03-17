@@ -19,8 +19,7 @@ export async function getHostSSHConfig(hostId: string): Promise<SSHConfig> {
     };
   }
 
-  // Prioritaet: Key direkt aus DB, Fallback auf Env-Var (Bestandshosts)
-  const privateKey = h.privateKey ?? (h.privateKeyEnv ? process.env[h.privateKeyEnv] : undefined);
+  const privateKey = h.privateKey;
 
   return {
     host: h.hostname,

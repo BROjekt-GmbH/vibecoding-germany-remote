@@ -4,5 +4,5 @@ type HostRow = typeof hosts.$inferSelect;
 
 export function sanitizeHost(host: HostRow) {
   const { privateKey, ...rest } = host;
-  return { ...rest, hasKey: Boolean(privateKey || rest.privateKeyEnv) };
+  return { ...rest, hasKey: Boolean(privateKey) };
 }
