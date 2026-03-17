@@ -47,3 +47,9 @@ next-env.d.ts
 
 # agent reports (intern, nicht im Repo)
 /reports
+
+# SQLite data
+data/
+
+# test env
+.env.test
