@@ -51,9 +51,11 @@ export default function ProjectsPage() {
           const sr = await fetchWithTimeout(`/api/projects/${project.id}/status`);
           if (sr.ok && !signal?.aborted) {
             const data = await sr.json();
-            setProjectStatuses(prev =>
-              prev.map(ps => ps.project.id === project.id ? data : ps)
-            );
+            if (data?.project && Array.isArray(data.sessions)) {
+              setProjectStatuses(prev =>
+                prev.map(ps => ps.project.id === project.id ? data : ps)
+              );
+            }
           }
         } catch { /* ignore */ }
       }
@@ -181,7 +183,7 @@ export default function ProjectsPage() {
                         <p className="text-[12px] text-[#8a9bb0] mt-1">{project.description}</p>
                       )}
                       <div className="flex items-center gap-2 mt-2">
-                        {sessions.length > 0 && (
+                        {sessions?.length > 0 && (
                           <span className="flex items-center gap-1 text-[11px] text-[#22d3ee]">
                             <Terminal size={10} />
                             {sessions.length} Session{sessions.length !== 1 ? 's' : ''}
