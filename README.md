@@ -1,6 +1,22 @@
-# VibeCoding-Germany Remote
+<div align="center">
 
-Selbst-gehostetes Web-Dashboard zur Verwaltung von tmux-Sessions auf Remote-Hosts via SSH. Zeigt Live-Terminals im Browser — funktioniert mit Claude Code, Codex oder jedem anderen Tool das in tmux laeuft.
+```
+ __      _____ ___ ___        _ _              ___
+ \ \    / /_ _| _ ) __|  __ _| (_)_ _  __ _   / __|___ _ _ _ __  __ _ _ _ _  _
+  \ \/\/ / | || _ \ _|  / _` | | | ' \/ _` | | (_ / -_) '_| '  \/ _` | ' \ || |
+   \_/\_/ |___|___/___| \__,_|_|_|_||_\__, |  \___\___|_| |_|_|_\__,_|_||_\_, |
+                                      |___/                                |__/
+                         ____                      _
+                        |  _ \ ___ _ __ ___   ___ | |_ ___
+                        | |_) / _ \ '_ ` _ \ / _ \| __/ _ \
+                        |  _ <  __/ | | | | | (_) | ||  __/
+                        |_| \_\___|_| |_| |_|\___/ \__\___|
+```
+
+Selbst-gehostetes Web-Dashboard zur Verwaltung von tmux-Sessions auf Remote-Hosts via SSH.
+Zeigt Live-Terminals im Browser — funktioniert mit Claude Code, Codex oder jedem anderen Tool das in tmux laeuft.
+
+</div>
 
 Gesichert ueber Tailscale — nur fuer Tailnet-Mitglieder zugaenglich, keine Login-Seite noetig.
 
