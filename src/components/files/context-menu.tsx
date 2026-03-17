@@ -13,7 +13,6 @@ import {
 
 } from 'lucide-react';
 import { useFileBrowser } from '@/lib/stores/file-browser';
-import { usePanelManager } from '@/lib/stores/panel-manager';
 import { joinPath, parentPath } from '@/lib/files/utils';
 import type { FileEntry } from '@/types';
 import { useRouter } from 'next/navigation';
@@ -37,7 +36,6 @@ export function ContextMenu({
 }: ContextMenuProps) {
   const menuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
-  const openPanel = usePanelManager((s) => s.openPanel);
   const {
     hostId,
     currentPath,
@@ -97,7 +95,8 @@ export function ContextMenu({
 
   const handleQuickTerminal = (e: React.MouseEvent) => {
     e.stopPropagation();
-    openPanel('terminal-mini');
+    const dir = entry.isDir ? entryPath : (parentPath(entryPath) ?? '/');
+    router.push(`/terminal?hostId=${encodeURIComponent(hostId)}&startDir=${encodeURIComponent(dir)}`);
     onClose();
   };
 

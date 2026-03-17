@@ -2,11 +2,10 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Server, Terminal, ArrowRight, RefreshCw, FolderOpen } from 'lucide-react';
 import { formatRelativeTime } from '@/lib/utils';
 import { Spinner } from '@/components/ui/spinner';
-import { usePanelManager } from '@/lib/stores/panel-manager';
-import { useFileBrowser } from '@/lib/stores/file-browser';
 import type { Host } from '@/types';
 
 interface HostCardProps {
@@ -18,20 +17,18 @@ interface HostCardProps {
 export function HostCard({ host, isOnline, sessionCount }: HostCardProps) {
   const [reconnecting, setReconnecting] = useState(false);
   const [reconnectResult, setReconnectResult] = useState<'success' | 'error' | null>(null);
-  const openPanel = usePanelManager((s) => s.openPanel);
-  const setHostId = useFileBrowser((s) => s.setHostId);
+  const router = useRouter();
 
   const handleOpenTerminal = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    openPanel('terminal-mini');
+    router.push(`/terminal?hostId=${encodeURIComponent(host.id)}`);
   };
 
   const handleOpenFiles = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setHostId(host.id);
-    openPanel('files');
+    router.push(`/files?hostId=${encodeURIComponent(host.id)}`);
   };
 
 
