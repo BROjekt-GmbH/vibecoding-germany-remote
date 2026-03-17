@@ -48,13 +48,13 @@ export default async function RootLayout({
           <main
             style={{
               paddingTop: 'var(--header-height)',
-              paddingLeft: 0,
               paddingBottom: 'var(--bottom-bar-height)',
               minHeight: '100vh',
               background: 'var(--bg-base)',
             }}
+            className="md:pl-[var(--sidebar-width)]"
           >
-            <div className="p-4 md:p-6">
+            <div className="p-4 md:p-6 max-w-7xl mx-auto">
               {children}
             </div>
           </main>
