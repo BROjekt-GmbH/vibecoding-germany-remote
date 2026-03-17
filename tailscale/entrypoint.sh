@@ -1,11 +1,11 @@
 #!/bin/sh
-# Generiert die Tailscale Serve-Konfiguration dynamisch mit dem richtigen Hostnamen.
-# TS_CERT_DOMAIN wird in .env gesetzt (z.B. "mein-tailnet.ts.net")
+# Generiert die Tailscale Serve-Konfiguration und startet containerboot.
+# Tailscale Serve terminiert TLS und setzt automatisch Identity-Header.
 
-HOSTNAME="remote-team"
+HOSTNAME="${TS_HOSTNAME:-vcg-remote}"
 DOMAIN="${TS_CERT_DOMAIN:-tailnet.ts.net}"
 
-cat > /config/serve.json <<EOF
+cat > /tmp/serve.json <<EOF
 {
   "TCP": {
     "443": {
@@ -24,7 +24,6 @@ cat > /config/serve.json <<EOF
 }
 EOF
 
-echo "Tailscale Serve-Config generiert für ${HOSTNAME}.${DOMAIN}"
-
-# Tailscale starten
+echo "Tailscale Serve-Config generiert fuer ${HOSTNAME}.${DOMAIN}"
+export TS_SERVE_CONFIG=/tmp/serve.json
 exec /usr/local/bin/containerboot
