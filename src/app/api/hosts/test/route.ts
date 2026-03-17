@@ -7,7 +7,9 @@ const TestSchema = z.object({
   hostname: z.string().min(1),
   port: z.coerce.number().int().min(1).max(65535).default(22),
   username: z.string().min(1),
+  authMethod: z.enum(['key', 'agent', 'password']).default('key'),
   privateKey: z.string().optional(),
+  password: z.string().optional(),
 });
 
 export async function POST(req: NextRequest) {
@@ -22,7 +24,22 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { hostname, port, username, privateKey } = parsed.data;
+    const data = parsed.data;
+
+    const connectConfig: Record<string, unknown> = {
+      host: data.hostname,
+      port: data.port,
+      username: data.username,
+      readyTimeout: 10_000,
+    };
+
+    if (data.authMethod === 'password' && data.password) {
+      connectConfig.password = data.password;
+    } else if (data.authMethod === 'agent') {
+      connectConfig.agent = process.env.SSH_AUTH_SOCK;
+    } else if (data.privateKey) {
+      connectConfig.privateKey = data.privateKey;
+    }
 
     await new Promise<void>((resolve, reject) => {
       const client = new SSHClient();
@@ -41,13 +58,7 @@ export async function POST(req: NextRequest) {
           clearTimeout(timeout);
           reject(err);
         })
-        .connect({
-          host: hostname,
-          port,
-          username,
-          privateKey,
-          readyTimeout: 10_000,
-        });
+        .connect(connectConfig as Parameters<SSHClient['connect']>[0]);
     });
 
     return NextResponse.json({ success: true });

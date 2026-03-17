@@ -44,8 +44,11 @@ export async function PATCH(req: NextRequest, { params }: Params) {
     if (data.privateKey) {
       data.privateKey = encrypt(data.privateKey);
     }
+    if (data.password) {
+      data.password = encrypt(data.password);
+    }
 
-    const hasKeyChange = data.privateKey !== undefined;
+    const hasKeyChange = data.privateKey !== undefined || data.password !== undefined;
 
     const [updated] = await db
       .update(hosts)

@@ -5,8 +5,9 @@ export const CreateHostSchema = z.object({
   hostname: z.string().min(1),
   port: z.number().int().min(1).max(65535).default(22),
   username: z.string().min(1),
-  authMethod: z.enum(['key', 'agent']).default('key'),
+  authMethod: z.enum(['key', 'agent', 'password']).default('key'),
   privateKey: z.string().optional(),
+  password: z.string().optional(),
 });
 
 export const UpdateHostSchema = CreateHostSchema.partial();

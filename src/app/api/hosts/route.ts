@@ -35,6 +35,9 @@ export async function POST(req: NextRequest) {
     if (data.privateKey) {
       data.privateKey = encrypt(data.privateKey);
     }
+    if (data.password) {
+      data.password = encrypt(data.password);
+    }
     const [host] = await db.insert(hosts).values(data).returning();
     return NextResponse.json(sanitizeHost(host), { status: 201 });
   } catch (err: unknown) {
