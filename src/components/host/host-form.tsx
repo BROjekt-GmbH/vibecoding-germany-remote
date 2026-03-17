@@ -24,6 +24,7 @@ export function HostForm({ host, onSuccess, onCancel }: HostFormProps) {
     username: host?.username ?? '',
     authMethod: host?.authMethod ?? 'key',
     privateKey: '',
+    password: '',
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [testing, setTesting] = useState(false);
@@ -54,6 +55,9 @@ export function HostForm({ host, onSuccess, onCancel }: HostFormProps) {
       payload.privateKey = form.privateKey;
     } else if (!isEditing) {
       payload.privateKey = form.privateKey || undefined;
+    }
+    if (form.authMethod === 'password' && form.password) {
+      payload.password = form.password;
     }
     return payload;
   };
@@ -100,7 +104,14 @@ export function HostForm({ host, onSuccess, onCancel }: HostFormProps) {
   };
 
   const set = (key: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
-    setForm((prev) => ({ ...prev, [key]: e.target.value }));
+    setForm((prev) => {
+      const next = { ...prev, [key]: e.target.value };
+      // Passwort zuruecksetzen wenn von 'password' weggewechselt wird
+      if (key === 'authMethod' && e.target.value !== 'password') {
+        next.password = '';
+      }
+      return next;
+    });
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -148,10 +159,24 @@ export function HostForm({ host, onSuccess, onCancel }: HostFormProps) {
           onChange={set('authMethod')}
           className="input"
         >
-          <option value="key">SSH Key</option>
-          <option value="agent">SSH Agent</option>
+          <option value="password">Passwort</option>
+          <option value="key">SSH-Key</option>
+          <option value="agent">SSH-Agent</option>
         </select>
       </div>
+
+      {form.authMethod === 'password' && (
+        <div className="flex flex-col gap-1">
+          <label className="text-label">Passwort</label>
+          <input
+            type="password"
+            value={form.password}
+            onChange={set('password')}
+            placeholder={isEditing ? 'Leer lassen um beizubehalten' : 'SSH-Passwort'}
+            className="input"
+          />
+        </div>
+      )}
 
       {form.authMethod === 'key' && (
         <div className="flex flex-col gap-1">
