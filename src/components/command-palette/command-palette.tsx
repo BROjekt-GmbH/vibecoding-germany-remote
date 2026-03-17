@@ -5,16 +5,13 @@ import { Command } from 'cmdk';
 import { useRouter } from 'next/navigation';
 import {
   LayoutDashboard, Server, Terminal, FolderOpen,
-  Settings, FolderKanban, Clock, Zap,
+  Settings, Zap,
 } from 'lucide-react';
-import { usePanelManager } from '@/lib/stores/panel-manager';
 import { useCommandPalette } from '@/lib/stores/command-palette';
-import type { PanelId } from '@/types/panels';
 
 export function CommandPalette() {
   const { open, setOpen } = useCommandPalette();
   const router = useRouter();
-  const { togglePanel } = usePanelManager();
 
   // Ctrl+K / Cmd+K globaler Shortcut
   useEffect(() => {
@@ -36,11 +33,6 @@ export function CommandPalette() {
     setOpen(false);
   };
 
-  const panel = (id: PanelId) => {
-    togglePanel(id);
-    setOpen(false);
-  };
-
   if (!open) return null;
 
   return (
@@ -54,7 +46,7 @@ export function CommandPalette() {
       {/* Palette */}
       <div className="relative z-10 w-full max-w-[560px] mx-auto px-3 animate-fade-in" onClick={(e) => e.stopPropagation()}>
         <Command label="Command Palette">
-          <Command.Input placeholder="Suche nach Seiten, Panels, Aktionen..." autoFocus />
+          <Command.Input placeholder="Suche nach Seiten, Aktionen..." autoFocus />
           <Command.List>
             <Command.Empty>Keine Ergebnisse gefunden.</Command.Empty>
 
@@ -74,27 +66,6 @@ export function CommandPalette() {
 
               <Command.Item onSelect={() => navigate('/settings')}>
                 <Settings size={14} /> Einstellungen
-              </Command.Item>
-            </Command.Group>
-
-            <Command.Separator />
-
-            <Command.Group heading="Panels">
-              <Command.Item onSelect={() => panel('files')}>
-                <FolderOpen size={14} /> Panel: Dateien
-              </Command.Item>
-
-              <Command.Item onSelect={() => panel('terminal-mini')}>
-                <Terminal size={14} /> Panel: Quick Terminal
-              </Command.Item>
-              <Command.Item onSelect={() => panel('projects')}>
-                <FolderKanban size={14} /> Panel: Projekte
-              </Command.Item>
-              <Command.Item onSelect={() => panel('host-status')}>
-                <Server size={14} /> Panel: Host-Status
-              </Command.Item>
-              <Command.Item onSelect={() => panel('history')}>
-                <Clock size={14} /> Panel: Verlauf
               </Command.Item>
             </Command.Group>
 

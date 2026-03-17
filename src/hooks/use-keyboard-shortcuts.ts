@@ -1,15 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { usePanelManager } from '@/lib/stores/panel-manager';
 import { useCommandPalette } from '@/lib/stores/command-palette';
-import type { PanelId } from '@/types/panels';
-
-// Mapping Ctrl+1..4 auf Panel-IDs
-const SHORTCUT_PANELS: Record<string, PanelId> = {
-  '1': 'files',
-  '2': 'terminal-mini',
-};
 
 // Prueft ob der Fokus in einem Eingabefeld liegt
 function isTyping(): boolean {
@@ -22,7 +14,6 @@ function isTyping(): boolean {
 }
 
 export function useKeyboardShortcuts() {
-  const { togglePanel, minimizeAll, panels, closePanel } = usePanelManager();
   const commandPalette = useCommandPalette();
 
   useEffect(() => {
@@ -40,37 +31,16 @@ export function useKeyboardShortcuts() {
         return;
       }
 
-      // Ctrl+1..4 — Panel umschalten
-      if (e.ctrlKey && !e.shiftKey && SHORTCUT_PANELS[e.key]) {
-        e.preventDefault();
-        togglePanel(SHORTCUT_PANELS[e.key]);
-        return;
-      }
-
-      // Ctrl+Shift+M — alle Panels minimieren
-      if (e.ctrlKey && e.shiftKey && e.key === 'M') {
-        e.preventDefault();
-        minimizeAll();
-        return;
-      }
-
-      // Escape — Command Palette schliessen oder oberstes Panel schliessen
+      // Escape — Command Palette schliessen
       if (e.key === 'Escape') {
         if (commandPalette.open) {
           commandPalette.setOpen(false);
           return;
-        }
-        // Oberstes offenes, nicht-minimiertes Panel finden (hoechster zIndex)
-        const topPanel = Object.values(panels)
-          .filter((p) => p.open && !p.minimized)
-          .sort((a, b) => b.zIndex - a.zIndex)[0];
-        if (topPanel) {
-          closePanel(topPanel.id);
         }
       }
     }
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [togglePanel, minimizeAll, closePanel, panels, commandPalette]);
+  }, [commandPalette]);
 }

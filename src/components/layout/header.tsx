@@ -1,9 +1,8 @@
 'use client';
 
-import { Zap } from 'lucide-react';
+import { Search, Zap } from 'lucide-react';
 import type { AuthUser } from '@/types';
 import { NotificationCenter } from './notification-center';
-import { QuickActionBar } from './quick-action-bar';
 
 interface HeaderProps {
   user: AuthUser | null;
@@ -33,8 +32,15 @@ export function Header({ user }: HeaderProps) {
         </span>
       </div>
 
-      {/* Mitte — Quick-Action-Bar (Panel-Schalter und Suche) */}
-      <QuickActionBar />
+      {/* Mitte — Suche (Command Palette) */}
+      <button
+        onClick={() => document.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true }))}
+        className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-sm text-[12px] text-[#4a5a6e] hover:text-[#8a9bb0] border border-[#1a2028] hover:border-[#2a3a48] transition-colors"
+      >
+        <Search size={14} />
+        <span>Suche</span>
+        <kbd className="ml-2 text-[10px] text-[#3a4a5a] bg-[#0b0e11] px-1.5 py-0.5 rounded">Ctrl+K</kbd>
+      </button>
 
       {/* Rechte Seite: Notification Center + User */}
       <div className="flex items-center gap-3">

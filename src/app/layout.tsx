@@ -5,7 +5,6 @@ import { Header } from '@/components/layout/header';
 import { FooterBar } from '@/components/layout/footer-bar';
 import { BottomTabBar } from '@/components/layout/bottom-tab-bar';
 import { ToastProvider } from '@/components/layout/toast';
-import { WorkspaceOverlay } from '@/components/panels/workspace-overlay';
 import { getUser } from '@/lib/auth';
 
 export const metadata: Metadata = {
@@ -45,8 +44,6 @@ export default async function RootLayout({
           <Header user={user} />
           <FooterBar />
           <BottomTabBar />
-          <WorkspaceOverlay />
-
           {/* Main content area */}
           <main
             style={{
