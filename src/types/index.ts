@@ -5,8 +5,9 @@ export interface Host {
   hostname: string;
   port: number;
   username: string;
-  authMethod: 'key' | 'agent';  // 'key' = SSH key, 'agent' = SSH agent forwarding
+  authMethod: 'key' | 'agent' | 'password';  // 'key' = SSH key, 'agent' = SSH agent forwarding, 'password' = SSH password
   hasKey: boolean;
+  hasPassword: boolean;
   groupId: string | null;
   isOnline: boolean;
   lastSeen: string | null;

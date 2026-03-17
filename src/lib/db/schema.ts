@@ -16,8 +16,9 @@ export const hosts = sqliteTable('hosts', {
   hostname: text('hostname').notNull(),
   port: integer('port').notNull().default(22),
   username: text('username').notNull(),
-  authMethod: text('auth_method').notNull().default('key'), // 'key' | 'agent'
+  authMethod: text('auth_method').notNull().default('key'), // 'key' | 'agent' | 'password'
   privateKey: text('private_key'), // AES-256-GCM verschluesselt
+  password: text('password'), // AES-256-GCM verschluesselt
   groupId: text('group_id').references(() => hostGroups.id, { onDelete: 'set null' }),
   isOnline: integer('is_online', { mode: 'boolean' }).default(false),
   lastSeen: integer('last_seen', { mode: 'timestamp' }),

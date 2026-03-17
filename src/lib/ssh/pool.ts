@@ -75,6 +75,7 @@ class SSHPool {
           port: config.port,
           username: config.username,
           privateKey: config.privateKey,
+          password: config.password,
           agent: config.agent,
           keepaliveInterval: this.KEEPALIVE_INTERVAL,
           keepaliveCountMax: 3,

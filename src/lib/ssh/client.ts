@@ -10,25 +10,18 @@ export async function getHostSSHConfig(hostId: string): Promise<SSHConfig> {
   if (!result[0]) throw new Error(`Host not found: ${hostId}`);
 
   const h = result[0];
+  const base = { host: h.hostname, port: h.port, username: h.username };
 
   if (h.authMethod === 'agent') {
-    return {
-      host: h.hostname,
-      port: h.port,
-      username: h.username,
-      agent: process.env.SSH_AUTH_SOCK,
-    };
+    return { ...base, agent: process.env.SSH_AUTH_SOCK };
   }
 
-  // Key aus DB entschluesseln
-  const privateKey = h.privateKey ? decrypt(h.privateKey) : undefined;
+  if (h.authMethod === 'password') {
+    return { ...base, password: h.password ? decrypt(h.password) : undefined };
+  }
 
-  return {
-    host: h.hostname,
-    port: h.port,
-    username: h.username,
-    privateKey,
-  };
+  // Default: key
+  return { ...base, privateKey: h.privateKey ? decrypt(h.privateKey) : undefined };
 }
 
 export async function execOnHost(hostId: string, command: string): Promise<string> {

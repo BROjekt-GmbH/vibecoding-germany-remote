@@ -17,6 +17,7 @@ export interface SSHConfig {
   port: number;
   username: string;
   privateKey?: string;
+  password?: string;
   agent?: string; // SSH_AUTH_SOCK Pfad
 }
 

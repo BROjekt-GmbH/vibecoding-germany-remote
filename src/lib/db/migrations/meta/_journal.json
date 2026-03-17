@@ -8,6 +8,13 @@
       "when": 1773735179131,
       "tag": "0000_old_wild_pack",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1773741723233,
+      "tag": "0001_keen_emma_frost",
+      "breakpoints": true
     }
   ]
 }
