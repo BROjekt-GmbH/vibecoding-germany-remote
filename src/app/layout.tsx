@@ -52,7 +52,7 @@ export default async function RootLayout({
               minHeight: '100vh',
               background: 'var(--bg-base)',
             }}
-            className="md:pl-[var(--sidebar-width)]"
+            className="md:pl-[200px]"
           >
             <div className="p-4 md:p-6 max-w-7xl mx-auto">
               {children}
