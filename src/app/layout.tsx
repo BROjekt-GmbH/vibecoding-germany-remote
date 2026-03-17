@@ -9,12 +9,12 @@ import { WorkspaceOverlay } from '@/components/panels/workspace-overlay';
 import { getUser } from '@/lib/auth';
 
 export const metadata: Metadata = {
-  title: 'Remote Team — Meridian',
-  description: 'Claude Code team session dashboard',
+  title: 'VCG Remote',
+  description: 'Selbst-gehostetes tmux-Dashboard fuer Remote-Hosts',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'Remote Team',
+    title: 'VCG Remote',
   },
 };
 
@@ -33,7 +33,7 @@ export default async function RootLayout({
   const user = await getUser();
 
   return (
-    <html lang="en" className="dark">
+    <html lang="de" className="dark">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

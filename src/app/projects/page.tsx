@@ -256,7 +256,7 @@ export default function ProjectsPage() {
           {formPath && (
             <Input
               label="NAME"
-              placeholder="z.B. remote-team"
+              placeholder="z.B. mein-projekt"
               value={formName}
               onChange={(e) => setFormName(e.target.value)}
             />

@@ -2,9 +2,9 @@ import type { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Remote Team — Meridian',
-    short_name: 'Remote Team',
-    description: 'Claude Code team session dashboard',
+    name: 'VCG Remote',
+    short_name: 'VCG Remote',
+    description: 'Selbst-gehostetes tmux-Dashboard fuer Remote-Hosts',
     start_url: '/',
     display: 'standalone',
     background_color: '#060809',

@@ -13,7 +13,6 @@ import {
   ChevronLeft,
   ChevronRight,
   Terminal,
-  Zap,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -122,13 +121,6 @@ export function Sidebar() {
         </button>
       </div>
 
-      {/* Meridian wordmark */}
-      {!collapsed && (
-        <div className="px-4 pb-3 flex items-center gap-1.5 opacity-20">
-          <Zap size={10} className="text-[#22d3ee]" />
-          <span className="text-[10px] tracking-[0.2em] text-[#22d3ee] uppercase">Meridian</span>
-        </div>
-      )}
     </aside>
   );
 }

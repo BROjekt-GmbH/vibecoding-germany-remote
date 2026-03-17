@@ -29,9 +29,8 @@ export function Header({ user }: HeaderProps) {
           className="hidden sm:inline text-[13px] font-medium tracking-[0.15em] uppercase text-[#22d3ee]"
           style={{ textShadow: '0 0 12px rgba(34,211,238,0.4)' }}
         >
-          Remote Team
+          VCG Remote
         </span>
-        <span className="hidden sm:inline text-[10px] text-[#2d3f52] tracking-widest uppercase ml-1">MERIDIAN</span>
       </div>
 
       {/* Mitte — Quick-Action-Bar (Panel-Schalter und Suche) */}
