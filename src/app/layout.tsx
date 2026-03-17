@@ -53,10 +53,8 @@ export default async function RootLayout({
               background: 'var(--bg-base)',
             }}
           >
-            <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-              <div style={{ width: '100%', maxWidth: '1280px', padding: '2.5rem 2rem 1.5rem' }}>
-                {children}
-              </div>
+            <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '2.5rem 2rem 1.5rem' }}>
+              {children}
             </div>
           </main>
         </ToastProvider>
