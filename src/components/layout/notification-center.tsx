@@ -115,11 +115,11 @@ export function NotificationCenter() {
       {/* Dropdown-Panel */}
       {open && (
         <div
-          className="absolute right-0 top-full mt-1 w-80 rounded-sm z-50"
+          className="absolute right-0 top-full mt-2 w-80 rounded-lg z-50"
           style={{
             background: '#0b0e11',
             border: '1px solid #1a2028',
-            boxShadow: '0 8px 32px rgba(0,0,0,0.6)',
+            boxShadow: '0 12px 48px rgba(0,0,0,0.6), 0 0 0 1px rgba(34, 211, 238, 0.03)',
           }}
         >
           {/* Header */}
@@ -244,7 +244,7 @@ function NotificationItem({ notification, onClick }: NotificationItemProps) {
     <button
       onClick={() => onClick(notification)}
       className={cn(
-        'w-full text-left px-3 py-2.5 border-l-2 transition-colors',
+        'w-full text-left px-3 py-2.5 border-l-2 transition-colors relative',
         notification.link ? 'cursor-pointer' : 'cursor-default',
         'hover:bg-[#111519]',
       )}

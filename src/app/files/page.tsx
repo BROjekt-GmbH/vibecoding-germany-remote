@@ -151,7 +151,7 @@ export default function FilesPage() {
           <button
             type="button"
             onClick={() => setShowHostPicker(true)}
-            className="flex items-center gap-2 px-3 py-1.5 rounded border border-[#222c38] hover:border-[#22d3ee] bg-[#0b0e11] transition-colors text-[12px]"
+            className="flex items-center gap-2 px-3.5 py-2 rounded-md border border-[#222c38] hover:border-[#22d3ee] bg-[#0b0e11] transition-all duration-200 text-[12px]"
           >
             {selectedHost ? (
               <>
@@ -239,10 +239,10 @@ export default function FilesPage() {
                 key={h.id}
                 type="button"
                 onClick={() => { setHostId(h.id); setShowHostPicker(false); }}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded transition-colors text-left ${
+                className={`flex items-center gap-3 px-3.5 py-2.5 rounded-md transition-all duration-150 text-left ${
                   h.id === hostId
-                    ? 'bg-[#0e3a5e] border border-[#22d3ee]/30'
-                    : 'hover:bg-[#1a2028] border border-transparent'
+                    ? 'bg-[#0a1a2a] border border-[#22d3ee]/25'
+                    : 'hover:bg-[#111519] border border-transparent hover:border-[#1a2028]'
                 }`}
               >
                 <Server size={14} className={h.isOnline ? 'text-[#34d399]' : 'text-[#4a5a6e]'} />

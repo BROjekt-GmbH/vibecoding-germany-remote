@@ -17,7 +17,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             'btn-primary': variant === 'primary',
             'btn-ghost': variant === 'ghost',
             'btn-danger': variant === 'danger',
-            'btn-outline border-[#2d3f52] text-[#c8d6e5] hover:border-[#22d3ee] hover:text-[#22d3ee]': variant === 'outline',
+            'btn-outline border-[#2d3f52] text-[#c8d6e5] hover:border-[#22d3ee] hover:text-[#22d3ee] hover:shadow-[0_0_12px_var(--cyan-glow)]': variant === 'outline',
           },
           {
             'py-1 px-2 text-[11px]': size === 'sm',

@@ -124,19 +124,20 @@ export default function DashboardPage() {
               key={tile.path}
               href={tile.path}
               className={`panel p-4 hover:border-[#2d3f52] transition-all duration-200 group animate-fade-in stagger-${i + 1}`}
+              style={{ ['--tile-accent' as string]: tile.accent }}
             >
               <div
-                className="w-9 h-9 flex items-center justify-center rounded-sm mb-3"
-                style={{ background: `${tile.accent}18`, border: `1px solid ${tile.accent}30` }}
+                className="w-10 h-10 flex items-center justify-center rounded-md mb-3"
+                style={{ background: `${tile.accent}12`, border: `1px solid ${tile.accent}20` }}
               >
-                <Icon size={16} style={{ color: tile.accent }} />
+                <Icon size={17} style={{ color: tile.accent, filter: `drop-shadow(0 0 6px ${tile.accent})` }} />
               </div>
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-[13px] font-medium text-[#c8d6e5]">{tile.label}</p>
                   <p className="text-[11px] text-[#4a5a6e] mt-0.5">{tile.description}</p>
                 </div>
-                <ArrowRight size={14} className="text-[#2d3f52] group-hover:text-[#4a5a6e] group-hover:translate-x-0.5 transition-all" />
+                <ArrowRight size={14} className="text-[#2d3f52] group-hover:text-[#4a5a6e] group-hover:translate-x-1 transition-all duration-200" />
               </div>
             </Link>
           );
@@ -196,7 +197,7 @@ export default function DashboardPage() {
                         <Link
                           key={s.name}
                           href={`/terminal/${host.id}?session=${encodeURIComponent(s.name)}`}
-                          className="flex items-center gap-1.5 px-2 py-1 rounded text-[12px] text-[#8a9bb0] hover:text-[#22d3ee] transition-colors"
+                          className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[12px] text-[#8a9bb0] hover:text-[#22d3ee] hover:border-[#22d3ee]/30 transition-all duration-150"
                           style={{ background: 'var(--bg-overlay)', border: '1px solid var(--border-subtle)' }}
                         >
                           <Terminal size={10} />

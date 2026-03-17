@@ -129,14 +129,14 @@ export function SessionPickerDialog({ open, onClose, onSelect, existingTabs }: S
                 key={host.id}
                 onClick={() => handleSelectHost(host)}
                 disabled={!host.isOnline}
-                className={`flex items-center gap-2 px-3 py-2.5 rounded-sm text-left transition-colors ${
+                className={`flex items-center gap-2.5 px-3 py-2.5 rounded-md text-left transition-all duration-150 ${
                   selectedHost?.id === host.id
-                    ? 'ring-1 ring-[#22d3ee] bg-[#0b0e11]'
+                    ? 'ring-1 ring-[#22d3ee] bg-[#0a1a2a]'
                     : host.isOnline
-                      ? 'hover:bg-[#0b0e11] cursor-pointer'
+                      ? 'hover:bg-[#0b0e11] hover:border-[#2d3f52] cursor-pointer'
                       : 'opacity-40 cursor-default'
                 }`}
-                style={{ border: '1px solid var(--border-default)' }}
+                style={{ border: `1px solid ${selectedHost?.id === host.id ? 'rgba(34, 211, 238, 0.2)' : 'var(--border-default)'}` }}
               >
                 <Server size={13} className={host.isOnline ? 'text-[#22d3ee]' : 'text-[#4a5a6e]'} />
                 <div className="flex-1 min-w-0">
@@ -216,7 +216,7 @@ export function SessionPickerDialog({ open, onClose, onSelect, existingTabs }: S
               {!showCreate ? (
                 <button
                   onClick={() => setShowCreate(true)}
-                  className="flex items-center gap-2 px-3 py-2 mt-2 w-full rounded-sm text-left transition-colors hover:bg-[#111519]"
+                  className="flex items-center gap-2 px-3 py-2.5 mt-2 w-full rounded-md text-left transition-all duration-150 hover:bg-[#111519] hover:border-[#2d3f52]"
                   style={{ border: '1px dashed var(--border-default)', color: 'var(--text-muted)' }}
                 >
                   <Plus size={12} />

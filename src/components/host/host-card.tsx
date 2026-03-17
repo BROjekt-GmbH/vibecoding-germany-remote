@@ -52,19 +52,19 @@ export function HostCard({ host, isOnline, sessionCount }: HostCardProps) {
 
   return (
     <div
-      className="panel hover:border-[#2d3f52] transition-all duration-200 group relative"
+      className="panel hover:border-[#2d3f52] transition-all duration-200 group relative overflow-hidden"
       style={{
         ...(isOnline && {
-          boxShadow: '0 0 0 1px transparent',
+          boxShadow: '0 0 20px rgba(52, 211, 153, 0.04)',
         }),
       }}
     >
       {/* Status strip */}
       <div
-        className="h-0.5 rounded-t-sm"
+        className="h-[3px] rounded-t-[5px]"
         style={{
           background: isOnline
-            ? 'linear-gradient(90deg, var(--green) 0%, transparent 80%)'
+            ? 'linear-gradient(90deg, var(--green) 0%, var(--cyan) 50%, transparent 100%)'
             : 'var(--border-subtle)',
         }}
       />
@@ -74,15 +74,16 @@ export function HostCard({ host, isOnline, sessionCount }: HostCardProps) {
         <div className="flex items-start justify-between mb-3">
           <div className="flex items-center gap-2.5">
             <div
-              className="w-8 h-8 rounded-sm flex items-center justify-center"
+              className="w-9 h-9 rounded-md flex items-center justify-center"
               style={{
-                background: 'var(--bg-elevated)',
-                border: '1px solid var(--border-default)',
+                background: isOnline ? 'rgba(52, 211, 153, 0.08)' : 'var(--bg-elevated)',
+                border: `1px solid ${isOnline ? 'rgba(52, 211, 153, 0.15)' : 'var(--border-default)'}`,
               }}
             >
               <Server
                 size={15}
                 className={isOnline ? 'text-[#34d399]' : 'text-[#4a5a6e]'}
+                style={isOnline ? { filter: 'drop-shadow(0 0 4px rgba(52, 211, 153, 0.4))' } : undefined}
               />
             </div>
             <div>
@@ -150,17 +151,17 @@ export function HostCard({ host, isOnline, sessionCount }: HostCardProps) {
             type="button"
             title="Terminal oeffnen"
             onClick={handleOpenTerminal}
-            className="flex items-center justify-center w-6 h-6 rounded text-[#4a5a6e] hover:text-[#22d3ee] hover:bg-[#1a2028] transition-colors"
+            className="flex items-center justify-center w-7 h-7 rounded-md text-[#4a5a6e] hover:text-[#22d3ee] hover:bg-[#111519] transition-all duration-150"
           >
-            <Terminal size={12} />
+            <Terminal size={13} />
           </button>
           <button
             type="button"
             title="Dateien oeffnen"
             onClick={handleOpenFiles}
-            className="flex items-center justify-center w-6 h-6 rounded text-[#4a5a6e] hover:text-[#22d3ee] hover:bg-[#1a2028] transition-colors"
+            className="flex items-center justify-center w-7 h-7 rounded-md text-[#4a5a6e] hover:text-[#22d3ee] hover:bg-[#111519] transition-all duration-150"
           >
-            <FolderOpen size={12} />
+            <FolderOpen size={13} />
           </button>
 
         </div>

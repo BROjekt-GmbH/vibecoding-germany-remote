@@ -11,7 +11,7 @@ const tocItems = [
 
 function Code({ children }: { children: React.ReactNode }) {
   return (
-    <code className="bg-[#0b0e11] border border-[#1a2028] text-[#22d3ee] px-1.5 py-0.5 rounded text-[13px] font-mono">
+    <code className="bg-[#0b0e11] border border-[#1a2028] text-[#22d3ee] px-1.5 py-0.5 rounded-md text-[13px] font-mono">
       {children}
     </code>
   );
@@ -19,7 +19,7 @@ function Code({ children }: { children: React.ReactNode }) {
 
 function CodeBlock({ children }: { children: React.ReactNode }) {
   return (
-    <pre className="bg-[#0b0e11] border border-[#1a2028] rounded-md p-4 text-[13px] font-mono text-[#8a9bb0] overflow-x-auto my-3">
+    <pre className="bg-[#0b0e11] border border-[#1a2028] rounded-lg p-4 text-[13px] font-mono text-[#8a9bb0] overflow-x-auto my-3">
       {children}
     </pre>
   );
@@ -53,7 +53,7 @@ export default function HelpPage() {
       </div>
 
       {/* Table of Contents */}
-      <nav className="mb-10 p-4 bg-[#0b0e11] border border-[#1a2028] rounded-md animate-fade-in">
+      <nav className="mb-10 p-5 bg-[#0b0e11] border border-[#1a2028] rounded-lg animate-fade-in">
         <h2 className="text-[13px] font-semibold text-[#4a5a6e] uppercase tracking-wider mb-3">
           Inhalt
         </h2>

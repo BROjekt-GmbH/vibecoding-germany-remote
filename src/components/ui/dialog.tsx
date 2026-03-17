@@ -38,26 +38,32 @@ export function Dialog({ open, onClose, title, children, className }: DialogProp
       onClick={(e) => { if (e.target === overlayRef.current) onClose(); }}
     >
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-md" />
 
       {/* Panel */}
       <div
         className={cn(
-          'relative z-10 w-full max-w-lg mx-3 md:mx-4 max-h-[90vh] overflow-y-auto panel-elevated animate-fade-in',
+          'relative z-10 w-full max-w-lg mx-3 md:mx-4 max-h-[90vh] overflow-y-auto animate-fade-in',
           className
         )}
+        style={{
+          background: 'var(--bg-elevated)',
+          border: '1px solid var(--border-default)',
+          borderRadius: '10px',
+          boxShadow: '0 24px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(34, 211, 238, 0.04)',
+        }}
         role="dialog"
         aria-modal="true"
         aria-labelledby="dialog-title"
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-3 border-b border-[#1a2028]">
+        <div className="flex items-center justify-between px-5 py-3.5 border-b border-[#1a2028]">
           <h2 id="dialog-title" className="text-sm font-medium text-[#c8d6e5]">
             {title}
           </h2>
           <button
             onClick={onClose}
-            className="w-6 h-6 flex items-center justify-center rounded text-[#4a5a6e] hover:text-[#c8d6e5] hover:bg-[#1a2028] transition-colors"
+            className="w-7 h-7 flex items-center justify-center rounded-md text-[#4a5a6e] hover:text-[#c8d6e5] hover:bg-[#1a2028] transition-colors"
             aria-label="Close dialog"
           >
             <X size={14} />

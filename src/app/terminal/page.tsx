@@ -309,20 +309,25 @@ export default function TerminalPage() {
 
             {/* Leerer State */}
             {tabs.length === 0 && !showPicker && (
-              <div className="flex flex-col items-center justify-center h-full gap-4">
+              <div className="flex flex-col items-center justify-center h-full gap-5">
                 <div
-                  className="w-16 h-16 rounded-sm flex items-center justify-center"
-                  style={{ background: 'var(--terminal-bg)', border: '1px solid var(--border-default)' }}
+                  className="w-16 h-16 rounded-lg flex items-center justify-center"
+                  style={{ background: 'var(--terminal-bg)', border: '1px solid var(--border-default)', boxShadow: '0 0 30px var(--cyan-glow)' }}
                 >
                   <Terminal
-                    size={24}
+                    size={26}
                     className="text-[#22d3ee]"
-                    style={{ filter: 'drop-shadow(0 0 8px var(--cyan))' }}
+                    style={{ filter: 'drop-shadow(0 0 10px var(--cyan))' }}
                   />
                 </div>
-                <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
-                  Keine offenen Sessions
-                </p>
+                <div className="text-center">
+                  <p className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
+                    Keine offenen Sessions
+                  </p>
+                  <p className="text-[11px] mt-1" style={{ color: 'var(--text-muted)' }}>
+                    Verbinde dich mit einer tmux-Session
+                  </p>
+                </div>
                 <button onClick={() => setShowPicker(true)} className="btn btn-primary">
                   <Plus size={13} />
                   Session verbinden

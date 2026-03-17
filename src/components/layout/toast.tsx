@@ -147,7 +147,7 @@ function ToastItem({ toast, onRemove }: ToastItemProps) {
       role="alert"
       onClick={toast.link ? handleClick : undefined}
       className={cn(
-        'pointer-events-auto w-80 rounded-sm shadow-lg shadow-black/50',
+        'pointer-events-auto w-80 rounded-lg shadow-lg shadow-black/50',
         'transition-all duration-300 ease-out',
         toast.link && 'cursor-pointer',
         visible
@@ -157,6 +157,7 @@ function ToastItem({ toast, onRemove }: ToastItemProps) {
       style={{
         background: '#0b0e11',
         border: `1px solid ${borderColor}`,
+        boxShadow: `0 8px 32px rgba(0,0,0,0.4), 0 0 12px ${borderColor}20`,
       }}
     >
       <div className="flex items-start gap-3 p-3">

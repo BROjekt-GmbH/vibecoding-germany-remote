@@ -48,8 +48,8 @@ export function BottomTabBar() {
             <span className="text-[10px] leading-none">{tab.label}</span>
             {isActive && (
               <span
-                className="absolute top-0 left-1/2 -translate-x-1/2 h-0.5 w-8 rounded-full"
-                style={{ background: 'var(--cyan)' }}
+                className="absolute top-0 left-1/2 -translate-x-1/2 h-[2.5px] w-10 rounded-full"
+                style={{ background: 'var(--cyan)', boxShadow: '0 0 8px var(--cyan-glow)' }}
               />
             )}
           </Link>
