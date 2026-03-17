@@ -43,7 +43,7 @@ export function Dialog({ open, onClose, title, children, className }: DialogProp
       {/* Panel */}
       <div
         className={cn(
-          'relative z-10 w-full max-w-lg mx-3 md:mx-4 max-h-[90vh] overflow-y-auto animate-fade-in',
+          'relative z-10 w-full max-w-lg mx-3 md:mx-4 max-h-[90vh] flex flex-col animate-fade-in overflow-hidden',
           className
         )}
         style={{
@@ -57,7 +57,7 @@ export function Dialog({ open, onClose, title, children, className }: DialogProp
         aria-labelledby="dialog-title"
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[#1a2028]">
+        <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-[#1a2028]">
           <h2 id="dialog-title" className="text-[15px] font-semibold text-[#e2eaf3]">
             {title}
           </h2>
@@ -71,7 +71,7 @@ export function Dialog({ open, onClose, title, children, className }: DialogProp
         </div>
 
         {/* Content */}
-        <div className="px-6 py-5">
+        <div className="px-6 py-5 overflow-y-auto">
           {children}
         </div>
       </div>

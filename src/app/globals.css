@@ -111,11 +111,6 @@
   }
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-}
-
 html, body {
   height: 100%;
   background: var(--bg-base);
