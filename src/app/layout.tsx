@@ -54,7 +54,7 @@ export default async function RootLayout({
             }}
           >
             <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-              <div style={{ width: '100%', maxWidth: '1280px', padding: '1.5rem 2rem' }}>
+              <div style={{ width: '100%', maxWidth: '1280px', padding: '2.5rem 2rem 1.5rem' }}>
                 {children}
               </div>
             </div>
