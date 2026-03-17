@@ -1,6 +1,7 @@
 'use client';
 
-import { Maximize2, ZoomIn, ZoomOut, FolderCode } from 'lucide-react';
+import { Maximize2, Minimize2, ZoomIn, ZoomOut, FolderCode } from 'lucide-react';
+import { useState, useEffect, useCallback } from 'react';
 import { LayoutSelector } from '@/components/terminal/layout-selector';
 import type { TerminalLayout } from '@/hooks/use-terminal-layout';
 
@@ -30,6 +31,22 @@ export function TerminalToolbar({
   broadcastMode = false,
   onBroadcastModeChange,
 }: TerminalToolbarProps) {
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  useEffect(() => {
+    const onChange = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener('fullscreenchange', onChange);
+    return () => document.removeEventListener('fullscreenchange', onChange);
+  }, []);
+
+  const toggleFullscreen = useCallback(() => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else {
+      document.documentElement.requestFullscreen();
+    }
+  }, []);
+
   return (
     <div
       className="flex items-center justify-between px-3 h-8 border-t border-[#1a2028] shrink-0"
@@ -79,10 +96,15 @@ export function TerminalToolbar({
         </button>
         <div className="w-px h-4 bg-[#1a2028] mx-1" />
         <button
-          className="w-6 h-6 flex items-center justify-center rounded text-[#4a5a6e] hover:text-[#8a9bb0] hover:bg-[#111519] transition-colors"
-          title="Fullscreen"
+          onClick={toggleFullscreen}
+          className={`w-6 h-6 flex items-center justify-center rounded transition-colors ${
+            isFullscreen
+              ? 'text-[#22d3ee] bg-[#0a1a2a]'
+              : 'text-[#4a5a6e] hover:text-[#8a9bb0] hover:bg-[#111519]'
+          }`}
+          title={isFullscreen ? 'Fullscreen beenden' : 'Fullscreen'}
         >
-          <Maximize2 size={12} />
+          {isFullscreen ? <Minimize2 size={12} /> : <Maximize2 size={12} />}
         </button>
 
         {/* IDE-Toggle */}
