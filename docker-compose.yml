@@ -1,0 +1,132 @@
+services:
+  # ---- Tailscale Sidecar ----
+  # Stellt die Tailscale-Verbindung her und macht die App nur im Tailnet erreichbar.
+  # Alle anderen Services nutzen das Netzwerk dieses Containers (network_mode: service:tailscale).
+  # socat bridged die LocalAPI auf TCP :9090, damit die App WhoIs-Abfragen machen kann.
+  tailscale:
+    image: tailscale/tailscale:latest
+    hostname: remote-team
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        apk add --no-cache socat >/dev/null 2>&1
+        # WICHTIG: $$ statt $ im Heredoc — Docker Compose substituiert $VAR auf YAML-Ebene,
+        # bevor die Shell den Heredoc sieht. $$ wird von Compose zu $ aufgeloest.
+        cat > /tmp/whois-proxy.sh << 'PROXYSCRIPT'
+        #!/bin/sh
+        IFS= read -r LINE
+        LINE=$$(printf '%s' "$$LINE" | tr -d '\r')
+        >&2 printf '[whois-proxy] Anfrage: %s\n' "$$LINE"
+        while IFS= read -r H; do
+          H=$$(printf '%s' "$$H" | tr -d '\r')
+          [ -z "$$H" ] && break
+        done
+        ADDR=$$(printf '%s' "$$LINE" | sed -n 's/.*addr=\([^ &]*\).*/\1/p' | sed 's/%3A/:/g')
+        if [ -z "$$ADDR" ]; then
+          >&2 printf '[whois-proxy] Fehler: kein addr-Parameter in: %s\n' "$$LINE"
+          printf 'HTTP/1.0 400 Bad Request\r\nContent-Type: text/plain\r\n\r\naddr parameter missing'
+          exit 0
+        fi
+        >&2 printf '[whois-proxy] WhoIs fuer: %s\n' "$$ADDR"
+        RESULT=$$(tailscale --socket=/var/run/tailscale/tailscaled.sock whois --json "$$ADDR" 2>/dev/null)
+        if [ $$? -eq 0 ] && [ -n "$$RESULT" ]; then
+          printf 'HTTP/1.0 200 OK\r\nContent-Type: application/json\r\n\r\n%s' "$$RESULT"
+        else
+          printf 'HTTP/1.0 404 Not Found\r\nContent-Type: text/plain\r\n\r\npeer not found'
+        fi
+        PROXYSCRIPT
+        chmod +x /tmp/whois-proxy.sh
+        /usr/local/bin/containerboot &
+        PID=$$!
+        while [ ! -S /var/run/tailscale/tailscaled.sock ]; do sleep 0.2; done
+        # WhoIs-Proxy: socat mit pipes fuer separate stdin/stdout
+        socat TCP-LISTEN:9090,fork,reuseaddr EXEC:/tmp/whois-proxy.sh,pipes &
+        echo "Tailscale bereit, WhoIs-Proxy auf :9090"
+        wait $$PID
+    environment:
+      - TS_AUTHKEY=${TS_AUTHKEY}
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_SOCKET=/var/run/tailscale/tailscaled.sock
+      - TS_USERSPACE=false
+      - TS_EXTRA_ARGS=--advertise-tags=tag:container
+      - TZ=Europe/Berlin
+    volumes:
+      - tailscale-state:/var/lib/tailscale
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "tailscale", "--socket=/var/run/tailscale/tailscaled.sock", "status"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  # ---- Caddy (TLS-Terminierung) ----
+  # Holt Let's Encrypt-Zertifikat fuer Custom Domain via Cloudflare DNS-Challenge.
+  # Nur im Tailnet erreichbar (kein Port-Mapping nach aussen).
+  caddy:
+    build:
+      context: .
+      dockerfile: Dockerfile.caddy
+    network_mode: service:tailscale
+    depends_on:
+      tailscale:
+        condition: service_healthy
+    volumes:
+      - caddy-data:/data
+      - caddy-config:/config
+    environment:
+      - CUSTOM_DOMAIN=${CUSTOM_DOMAIN:-team.brojekt.dev}
+      - CF_API_TOKEN=${CF_API_TOKEN}
+    restart: unless-stopped
+
+  # ---- Next.js App ----
+  # Teilt sich das Netzwerk mit dem Tailscale-Container.
+  # Ist dadurch NUR ueber die Tailscale-IP erreichbar, nicht ueber das oeffentliche Netz.
+  # Ermittelt Tailscale-Identitaet via LocalAPI WhoIs (Socket aus Volume).
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    network_mode: service:tailscale
+    depends_on:
+      tailscale:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-remote_team}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-remote_team}
+      - NODE_ENV=production
+      - PORT=3000
+      - TZ=Europe/Berlin
+      - POLL_INTERVAL_MS=${POLL_INTERVAL_MS:-2000}
+      # SSH-Keys als Umgebungsvariablen (in Coolify unter Secrets eintragen)
+      # SSH_KEY_WORK_LAPTOP="-----BEGIN OPENSSH PRIVATE KEY-----..."
+    restart: unless-stopped
+
+  # ---- PostgreSQL ----
+  # Nur intern erreichbar, kein Port-Mapping nach aussen.
+  db:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-remote_team}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?Setze POSTGRES_PASSWORD in .env}
+      - POSTGRES_DB=${POSTGRES_DB:-remote_team}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-remote_team}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  tailscale-state:
+  caddy-data:
+  caddy-config:
+  postgres-data:
