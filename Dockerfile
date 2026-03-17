@@ -2,7 +2,10 @@
 FROM node:22-alpine AS deps
 WORKDIR /app
 COPY package.json package-lock.json* ./
-RUN npm ci --ignore-scripts
+# better-sqlite3 braucht Build-Tools fuer native Addon
+RUN apk add --no-cache python3 make g++ && \
+    npm ci --ignore-scripts && \
+    npm rebuild better-sqlite3
 
 # ---- Production-Dependencies ----
 FROM node:22-alpine AS prod-deps
