@@ -155,7 +155,7 @@ export function ContextMenu({
   return (
     <div
       ref={menuRef}
-      className="fixed z-50 min-w-[180px] py-1 rounded border border-[#222c38] bg-[#0b0e11] shadow-xl"
+      className="fixed z-50 min-w-[200px] py-1.5 rounded-lg border border-[#222c38] bg-[#0b0e11] shadow-xl"
       style={{ top: y, left: x }}
       onClick={(e) => e.stopPropagation()}
     >
@@ -229,7 +229,7 @@ function MenuButton({ icon, onClick, children, shortcut, danger }: MenuButtonPro
     <button
       type="button"
       onClick={onClick}
-      className={`w-full flex items-center gap-2 px-3 py-1.5 text-[12px] font-mono transition-colors ${
+      className={`w-full flex items-center gap-2.5 px-3.5 py-2 text-[13px] font-mono transition-colors ${
         danger
           ? 'text-[#f87171] hover:bg-[#f87171]/10'
           : 'text-[#c8d6e5] hover:bg-[#1a2028]'
@@ -238,7 +238,7 @@ function MenuButton({ icon, onClick, children, shortcut, danger }: MenuButtonPro
       <span className={danger ? 'text-[#f87171]' : 'text-[#4a5a6e]'}>{icon}</span>
       <span className="flex-1 text-left">{children}</span>
       {shortcut && (
-        <span className="text-[#4a5a6e] text-[10px]">{shortcut}</span>
+        <span className="text-[#4a5a6e] text-[11px]">{shortcut}</span>
       )}
     </button>
   );

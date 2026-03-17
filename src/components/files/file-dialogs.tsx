@@ -51,7 +51,7 @@ export function NewFileDialog({ open, onClose }: NewFileDialogProps) {
   return (
     <Dialog open={open} onClose={handleClose} title="Neue Datei erstellen">
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <div className="text-[11px] text-[#4a5a6e] font-mono">
+        <div className="text-[12px] text-[#4a5a6e] font-mono">
           Verzeichnis: {currentPath}
         </div>
         <Input
@@ -63,7 +63,7 @@ export function NewFileDialog({ open, onClose }: NewFileDialogProps) {
           autoFocus
         />
         <div className="flex flex-col gap-1">
-          <label className="text-label text-[11px] text-[#4a5a6e]">INHALT (OPTIONAL)</label>
+          <label className="text-label text-[12px] text-[#4a5a6e]">INHALT (OPTIONAL)</label>
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
@@ -126,7 +126,7 @@ export function NewFolderDialog({ open, onClose }: NewFolderDialogProps) {
   return (
     <Dialog open={open} onClose={handleClose} title="Neuer Ordner">
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <div className="text-[11px] text-[#4a5a6e] font-mono">
+        <div className="text-[12px] text-[#4a5a6e] font-mono">
           Verzeichnis: {currentPath}
         </div>
         <Input
@@ -173,10 +173,10 @@ export function DeleteDialog({ open, path, onClose }: DeleteDialogProps) {
   return (
     <Dialog open={open} onClose={onClose} title="Eintrag loeschen?">
       <div className="flex flex-col gap-4">
-        <p className="text-[12px] text-[#c8d6e5]">
+        <p className="text-[13px] text-[#c8d6e5]">
           Soll der Eintrag wirklich endgueltig geloescht werden?
         </p>
-        <code className="text-[11px] text-[#f87171] font-mono bg-[#1a2028] px-2 py-1.5 rounded-sm break-all">
+        <code className="text-[12px] text-[#f87171] font-mono bg-[#1a2028] px-3 py-2 rounded-md break-all">
           {path}
         </code>
         <div className="flex justify-end gap-2">
@@ -249,7 +249,7 @@ export function RenameDialog({ open, path, onClose }: RenameDialogProps) {
         onSubmit={handleSubmit}
         className="flex flex-col gap-4"
       >
-        <div className="text-[11px] text-[#4a5a6e] font-mono truncate">
+        <div className="text-[12px] text-[#4a5a6e] font-mono truncate">
           {path}
         </div>
         <Input

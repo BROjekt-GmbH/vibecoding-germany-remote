@@ -158,7 +158,7 @@ export function SessionList({ hostId, initialSessions = [] }: SessionListProps) 
             error={error}
             autoFocus
           />
-          <p className="text-[11px] text-[#4a5a6e]">
+          <p className="text-[12px] text-[#4a5a6e]">
             Erlaubt: a-z, A-Z, 0-9, _ und -. Leer lassen für Standardname.
           </p>
           <div className="flex justify-end gap-2">

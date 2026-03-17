@@ -129,7 +129,7 @@ export function SessionPickerDialog({ open, onClose, onSelect, existingTabs }: S
                 key={host.id}
                 onClick={() => handleSelectHost(host)}
                 disabled={!host.isOnline}
-                className={`flex items-center gap-2.5 px-3 py-2.5 rounded-md text-left transition-all duration-150 ${
+                className={`flex items-center gap-3 px-3.5 py-3 rounded-lg text-left transition-all duration-150 ${
                   selectedHost?.id === host.id
                     ? 'ring-1 ring-[#22d3ee] bg-[#0a1a2a]'
                     : host.isOnline
@@ -140,7 +140,7 @@ export function SessionPickerDialog({ open, onClose, onSelect, existingTabs }: S
               >
                 <Server size={13} className={host.isOnline ? 'text-[#22d3ee]' : 'text-[#4a5a6e]'} />
                 <div className="flex-1 min-w-0">
-                  <p className="text-[12px] text-[#c8d6e5] truncate">{host.name}</p>
+                  <p className="text-[13px] text-[#c8d6e5] truncate">{host.name}</p>
                   <Badge variant={host.isOnline ? 'online' : 'offline'} className="mt-0.5">
                     {host.isOnline ? 'online' : 'offline'}
                   </Badge>
@@ -152,7 +152,7 @@ export function SessionPickerDialog({ open, onClose, onSelect, existingTabs }: S
           {/* Sessions des gewählten Hosts */}
           {selectedHost && (
             <div>
-              <p className="text-[11px] uppercase tracking-wider mb-2" style={{ color: 'var(--text-muted)' }}>
+              <p className="text-[12px] uppercase tracking-wider mb-2.5 font-medium" style={{ color: 'var(--text-muted)' }}>
                 Sessions auf {selectedHost.name}
               </p>
 
@@ -169,7 +169,7 @@ export function SessionPickerDialog({ open, onClose, onSelect, existingTabs }: S
                     return (
                       <div
                         key={session.name}
-                        className={`flex items-center gap-3 px-3 py-2 rounded-sm transition-colors group ${
+                        className={`flex items-center gap-3 px-3.5 py-2.5 rounded-md transition-colors group ${
                           alreadyOpen
                             ? 'opacity-40'
                             : 'hover:bg-[#111519]'
@@ -181,14 +181,14 @@ export function SessionPickerDialog({ open, onClose, onSelect, existingTabs }: S
                           disabled={alreadyOpen}
                           className="flex items-center gap-3 flex-1 text-left cursor-pointer disabled:cursor-default"
                         >
-                          <Terminal size={12} className="text-[#22d3ee]" />
+                          <Terminal size={13} className="text-[#22d3ee]" />
                           <div className="flex-1">
-                            <span className="text-[12px] text-[#c8d6e5]">{session.name}</span>
-                            <span className="text-[11px] ml-2" style={{ color: 'var(--text-muted)' }}>
+                            <span className="text-[13px] text-[#c8d6e5]">{session.name}</span>
+                            <span className="text-[12px] ml-2" style={{ color: 'var(--text-muted)' }}>
                               {session.windows} Window{session.windows !== 1 ? 's' : ''}
                             </span>
                             {alreadyOpen && (
-                              <span className="text-[11px] ml-2 text-[#22d3ee]">· geöffnet</span>
+                              <span className="text-[12px] ml-2 text-[#22d3ee]">· geöffnet</span>
                             )}
                           </div>
                         </button>
@@ -220,7 +220,7 @@ export function SessionPickerDialog({ open, onClose, onSelect, existingTabs }: S
                   style={{ border: '1px dashed var(--border-default)', color: 'var(--text-muted)' }}
                 >
                   <Plus size={12} />
-                  <span className="text-[12px]">Neue Session erstellen</span>
+                  <span className="text-[13px]">Neue Session erstellen</span>
                 </button>
               ) : (
                 <form

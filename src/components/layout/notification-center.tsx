@@ -124,19 +124,19 @@ export function NotificationCenter() {
         >
           {/* Header */}
           <div
-            className="flex items-center justify-between px-3 py-2"
+            className="flex items-center justify-between px-4 py-3"
             style={{ borderBottom: '1px solid #1a2028' }}
           >
-            <span className="text-[11px] font-medium tracking-wider uppercase" style={{ color: '#4a5a6e' }}>
+            <span className="text-[12px] font-medium tracking-wider uppercase" style={{ color: '#4a5a6e' }}>
               Benachrichtigungen
             </span>
             {unreadCount > 0 && (
               <button
                 onClick={handleMarkAllRead}
-                className="flex items-center gap-1 text-[10px] hover:opacity-80 transition-opacity"
+                className="flex items-center gap-1 text-[11px] hover:opacity-80 transition-opacity"
                 style={{ color: '#22d3ee' }}
               >
-                <CheckCheck size={11} />
+                <CheckCheck size={12} />
                 Alle gelesen
               </button>
             )}
@@ -147,10 +147,10 @@ export function NotificationCenter() {
             {notifications.length === 0 ? (
               <div className="py-8 text-center">
                 <Bell size={20} className="mx-auto mb-2" style={{ color: '#2d3f52' }} />
-                <p className="text-[11px]" style={{ color: '#4a5a6e' }}>
+                <p className="text-[12px]" style={{ color: '#4a5a6e' }}>
                   Keine neuen Benachrichtigungen
                 </p>
-                <p className="text-[10px] mt-1" style={{ color: '#2d3f52' }}>
+                <p className="text-[11px] mt-1" style={{ color: '#2d3f52' }}>
                   Alerts erscheinen hier automatisch
                 </p>
               </div>
@@ -204,7 +204,7 @@ function NotificationList({ notifications, onItemClick, onLoadMore, hasMore }: N
             className="flex items-center gap-2 px-3 py-1.5"
             style={{ borderTop: '1px solid #1a2028', borderBottom: '1px solid #1a2028' }}
           >
-            <span className="text-[9px] font-medium tracking-wider uppercase" style={{ color: '#2d3f52' }}>
+            <span className="text-[10px] font-medium tracking-wider uppercase" style={{ color: '#2d3f52' }}>
               Frueher
             </span>
             <div className="flex-1 h-px" style={{ background: '#1a2028' }} />
@@ -218,7 +218,7 @@ function NotificationList({ notifications, onItemClick, onLoadMore, hasMore }: N
       {hasMore && (
         <button
           onClick={onLoadMore}
-          className="w-full py-2 text-[10px] font-medium hover:bg-[#111519] transition-colors flex items-center justify-center gap-1"
+          className="w-full py-2.5 text-[11px] font-medium hover:bg-[#111519] transition-colors flex items-center justify-center gap-1"
           style={{ color: '#4a5a6e', borderTop: '1px solid #1a2028' }}
         >
           <Loader2 size={10} className="opacity-50" />
@@ -244,7 +244,7 @@ function NotificationItem({ notification, onClick }: NotificationItemProps) {
     <button
       onClick={() => onClick(notification)}
       className={cn(
-        'w-full text-left px-3 py-2.5 border-l-2 transition-colors relative',
+        'w-full text-left px-4 py-3 border-l-2 transition-colors relative',
         notification.link ? 'cursor-pointer' : 'cursor-default',
         'hover:bg-[#111519]',
       )}
@@ -257,20 +257,20 @@ function NotificationItem({ notification, onClick }: NotificationItemProps) {
       <div className="flex items-start justify-between gap-2">
         <div className="flex-1 min-w-0">
           <div
-            className="text-[11px] font-medium leading-tight mb-0.5 truncate"
+            className="text-[12px] font-medium leading-tight mb-0.5 truncate"
             style={{ color: isUnread ? '#c8d6e5' : '#8a9bb0' }}
           >
             {notification.title}
           </div>
           <div
-            className="text-[10px] leading-snug"
+            className="text-[11px] leading-snug"
             style={{ color: '#4a5a6e' }}
           >
             {notification.message}
           </div>
         </div>
         <div
-          className="flex-shrink-0 text-[9px] mt-0.5"
+          className="flex-shrink-0 text-[10px] mt-0.5"
           style={{ color: '#2d3f52' }}
         >
           {formatTime(notification.timestamp)}
