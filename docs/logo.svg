@@ -3,15 +3,15 @@
   <rect x="1" y="1" width="718" height="158" rx="11" fill="none" stroke="#1a2028" stroke-width="1"/>
 
   <!-- Terminal Prompt >_ -->
-  <text x="80" y="72" font-family="'SF Mono','Fira Code','Cascadia Code',Consolas,monospace" font-size="52" font-weight="bold" fill="#22d3ee">&gt;_</text>
+  <text x="105" y="72" font-family="'SF Mono','Fira Code','Cascadia Code',Consolas,monospace" font-size="52" font-weight="bold" fill="#22d3ee">&gt;_</text>
 
   <!-- Vibe (weiss) Coding (cyan) -->
-  <text x="190" y="72" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="48" font-weight="700">
+  <text x="200" y="72" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="48" font-weight="700">
     <tspan fill="#e8edf2">Vibe</tspan><tspan fill="#22d3ee">Coding</tspan>
   </text>
 
   <!-- Germany -->
-  <text x="568" y="72" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="36" font-weight="300" fill="#4a5a6e">Germany</text>
+  <text x="540" y="72" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="36" font-weight="300" fill="#4a5a6e">Germany</text>
 
   <!-- REMOTE -->
   <text x="360" y="115" text-anchor="middle" font-family="'SF Mono','Fira Code','Cascadia Code',Consolas,monospace" font-size="24" font-weight="400" fill="#3a4a5a" letter-spacing="14">REMOTE</text>

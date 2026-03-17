@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/logo.svg?v=2" alt="VibeCoding Germany Remote" width="600" />
+<img src="docs/logo.svg?v=3" alt="VibeCoding Germany Remote" width="600" />
 
 <br />
 
