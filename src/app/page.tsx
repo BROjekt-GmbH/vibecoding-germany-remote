@@ -6,6 +6,7 @@ import { Server, Terminal, Activity, ArrowRight, Zap } from 'lucide-react';
 import { Spinner } from '@/components/ui/spinner';
 import { Badge } from '@/components/ui/badge';
 import { useHostStatus } from '@/hooks/use-host-status';
+import { OnboardingWizard } from '@/components/onboarding/wizard';
 import type { Host, TmuxSession } from '@/types';
 
 interface HostSessionData {
@@ -23,6 +24,7 @@ function fetchWithTimeout(url: string, ms = 10_000): Promise<Response> {
 export default function DashboardPage() {
   const [hostData, setHostData] = useState<HostSessionData[]>([]);
   const [loading, setLoading] = useState(true);
+  const [hasHosts, setHasHosts] = useState<boolean | null>(null);
   const { getIsOnline } = useHostStatus();
 
   useEffect(() => {
@@ -36,6 +38,9 @@ export default function DashboardPage() {
         if (!Array.isArray(hosts) || cancelled) return;
 
         // Hosts sofort anzeigen (sessions noch leer)
+        setHasHosts(hosts.length > 0);
+        if (hosts.length === 0) { setLoading(false); return; }
+
         const initial = hosts.map((host) => ({ host, sessions: [] as TmuxSession[], loaded: false }));
         setHostData(initial);
         setLoading(false);
@@ -49,7 +54,7 @@ export default function DashboardPage() {
           }
           loadSessions(host.id);
         }
-      } catch { /* ignore */ } finally {
+      } catch { setHasHosts(true); } finally {
         if (!cancelled) setLoading(false);
       }
     };
@@ -77,6 +82,18 @@ export default function DashboardPage() {
 
   const totalSessions = hostData.reduce((sum, d) => sum + d.sessions.length, 0);
   const onlineHosts = hostData.filter((d) => getIsOnline(d.host.id, d.host.isOnline)).length;
+
+  if (hasHosts === null) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <Spinner size="md" />
+      </div>
+    );
+  }
+
+  if (hasHosts === false) {
+    return <OnboardingWizard />;
+  }
 
   return (
     <div className="max-w-6xl mx-auto">
