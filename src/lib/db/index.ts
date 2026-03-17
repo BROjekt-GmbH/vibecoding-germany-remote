@@ -20,6 +20,6 @@ export const db = new Proxy({} as BetterSQLite3Database<typeof schema>, {
       sqlite.pragma('foreign_keys = ON');
       _db = drizzle(sqlite, { schema });
     }
-    return (_db as Record<string | symbol, unknown>)[prop];
+    return (_db as unknown as Record<string | symbol, unknown>)[prop];
   },
 });
