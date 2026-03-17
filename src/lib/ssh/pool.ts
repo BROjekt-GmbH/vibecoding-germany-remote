@@ -128,6 +128,20 @@ class SSHPool {
     window?: { cols: number; rows: number },
   ): Promise<ClientChannel> {
     const client = await this.getConnection(hostId, config);
+    try {
+      return await this.shellOnClient(client, window);
+    } catch (err) {
+      // Channel open failure → frische Connection versuchen (wie bei exec)
+      await this.disconnect(hostId);
+      const freshClient = await this.getConnection(hostId, config);
+      return this.shellOnClient(freshClient, window);
+    }
+  }
+
+  private shellOnClient(
+    client: SSHClient,
+    window?: { cols: number; rows: number },
+  ): Promise<ClientChannel> {
     return new Promise((resolve, reject) => {
       client.shell(
         {
